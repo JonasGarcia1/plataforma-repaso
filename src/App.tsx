@@ -13,7 +13,7 @@ import { lessons, units } from './content';
 import { ProgressBar } from './components/ui';
 import { useProgress } from './lib/progress';
 import { ThemeToggle } from './lib/theme';
-const nav=[{to:'/',label:'Mi espacio',icon:LayoutDashboard},{to:'/roadmap',label:'Roadmap Java',icon:Compass},{to:'/preguntas',label:'Preguntas de entrevista',icon:MessageCircle},{to:'/practica',label:'Zona de práctica',icon:Zap},{to:'/recursos',label:'Recursos y glosario',icon:BookOpen}];
+const nav=[{to:'/',label:'Mi espacio',icon:LayoutDashboard},{to:'/roadmap',label:'Roadmap Java',icon:Compass},{to:'/preguntas',label:'Preguntas',icon:MessageCircle},{to:'/practica',label:'Zona de práctica',icon:Zap},{to:'/recursos',label:'Recursos y glosario',icon:BookOpen}];
 export default function App() {
  const [menu,setMenu]=useState(false);const [query,setQuery]=useState('');const location=useLocation();const navigate=useNavigate();const {progress,warning}=useProgress();
  const done=lessons.filter(l=>progress.statuses[l.id]==='repasado').length;
