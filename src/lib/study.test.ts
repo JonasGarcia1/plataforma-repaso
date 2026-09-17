@@ -1,0 +1,15 @@
+import { describe, it, expect } from 'vitest';
+import { emptyProgress, parseProgress, readProgress, matches, sampleUnique, splitSections, filterQuestions } from './study';
+import { questions } from '../content/questions';
+describe('progreso portable y recuperación',()=>{
+ it('conserva estados, favoritos y respuestas después de exportar/importar',()=>{const p={...emptyProgress(),statuses:{'u01-a':'repasado' as const,'u02-a':'reforzar' as const},favorites:['u01-a','q-git'],quizResults:{'quiz-1':2},interviewResults:{'q-1':'bien' as const},lastLesson:'u01-a'};expect(parseProgress(JSON.stringify(p))).toEqual(p);});
+ it('rechaza JSON corrupto, versiones futuras y estructuras inválidas',()=>{for(const input of ['{','null','[]',JSON.stringify({...emptyProgress(),version:2}),JSON.stringify({...emptyProgress(),statuses:{x:'hecho'}}),JSON.stringify({...emptyProgress(),quizResults:{x:-1}}),JSON.stringify({...emptyProgress(),favorites:[1]})])expect(()=>parseProgress(input)).toThrow();});
+ it('rechaza claves peligrosas y archivos demasiado grandes',()=>{expect(()=>parseProgress('{"version":1,"statuses":{"__proto__":"repasado"},"favorites":[],"quizResults":{},"interviewResults":{}}')).toThrow();expect(()=>parseProgress(' '.repeat(2_000_001))).toThrow();});
+ it('recupera una sesión vacía cuando el almacenamiento está corrupto o bloqueado',()=>{expect(readProgress({getItem:()=>'{mal'}).progress).toEqual(emptyProgress());expect(readProgress({getItem:()=>{throw new Error('blocked');}}).warning).toBeTruthy();expect(readProgress({getItem:()=>null}).warning).toBe('');});
+});
+describe('búsqueda, práctica y contenido desplegable',()=>{
+ it('busca sin depender de tildes o mayúsculas y admite varias palabras',()=>{expect(matches('inyeccion DEPENDENCIAS','Inyección de dependencias')).toBe(true);expect(matches('ordenamiento SQL','ordenamiento de Java')).toBe(false);});
+ it('combina filtros de unidad, etapa y favoritos en preguntas reales',()=>{const q=questions[0];const result=filterQuestions(questions,q.prompt,String(q.unitId),q.level,[q.id]);expect(result.map(item=>item.id)).toEqual([q.id]);expect(filterQuestions(questions,q.prompt,String(q.unitId+1),q.level,[q.id])).toHaveLength(0);});
+ it('selecciona preguntas sin repetir y respeta el tamaño de un banco pequeño',()=>{const a=Array.from({length:20},(_,i)=>({id:String(i)}));const sample=sampleUnique([...a,a[0]],10,()=>.5);expect(sample).toHaveLength(10);expect(new Set(sample.map(q=>q.id)).size).toBe(10);expect(sampleUnique(a.slice(0,2),10)).toHaveLength(2);});
+ it('no interpreta encabezados Markdown dentro de bloques de código',()=>{const content='## Concepto\nTexto\n```java\n## no es sección\n```\n## Práctica\nConsigna\n### Pista\nPista\n### Solución\nRespuesta';const sections=splitSections(content);expect(sections.map(s=>s.title)).toEqual(['Concepto','Práctica']);expect(sections[1].body).toContain('### Solución');});
+});

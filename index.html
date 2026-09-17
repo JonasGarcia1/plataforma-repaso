@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#F4FAFD"/>
+<script>
+// Apply the preference before the stylesheet and React render the first frame.
+(function () {
+  var preference = 'system';
+  try {
+    var saved = localStorage.getItem('repaso.theme.v1');
+    if (saved === 'light' || saved === 'dark') preference = saved;
+  } catch (_) {}
+  var dark = preference === 'dark' || (preference === 'system' && typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#061821' : '#F4FAFD');
+})();
+</script>
+<meta name="description" content="Tu espacio de repaso Backend Java. Conceptos claros, práctica y preguntas de entrevistas, desde los fundamentos hasta las decisiones de arquitectura."/><title>Repaso · Backend Java</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"/></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>
