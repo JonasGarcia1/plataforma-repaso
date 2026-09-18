@@ -1,6 +1,6 @@
 # Integración del banco Spring Boot + Kafka
 
-Las 40 preguntas del curso `springboot-kafka-course/src/course-data.js` se integraron semánticamente en el banco principal: **33 preguntas nuevas**, **4 ampliaciones de preguntas existentes** y **3 formulaciones adicionales agrupadas con preguntas nuevas**. El banco resultante contiene **157 preguntas** y **40 quizzes**: ocho quizzes nuevos, dos por cada unidad 17–20.
+Las 40 preguntas del curso `springboot-kafka-course/src/course-data.js` se integraron semánticamente en el banco inicial: **33 preguntas nuevas**, **4 ampliaciones de preguntas existentes** y **3 formulaciones adicionales agrupadas con preguntas nuevas**. La ampliación junior a senior posterior lleva la plataforma a **195 preguntas** y **52 quizzes**; las ocho preguntas de Kafka de esta revisión se conservan, dos por cada unidad 17–20.
 
 Los IDs previos se conservan para mantener resultados guardados. Las preguntas nuevas usan IDs `q-kafka-*` y los quizzes `quiz-kafka-*`. Los enlaces emplean las lecciones `kafka-*` integradas; los ejemplos locales mantienen la referencia al laboratorio `springboot-kafka-roadmap-course`.
 

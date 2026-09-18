@@ -1,4 +1,6 @@
 import type { Question } from '../types';
+import { unitById } from './units';
+import { expansionQuestions } from './expansion-questions';
 
 const lessonSuffix: Record<string, string> = {
   'git': 'b', 'git-commit': 'b', 'git-conflictos': 'b', 'fetch-pull': 'b', 'git-stash': 'b', 'gitflow': 'b', 'gitignore': 'b', 'git-deshacer': 'b', 'git-historial': 'b', 'pull-request': 'b', 'scrum': 'c', 'jira': 'c',
@@ -17,11 +19,11 @@ function q(id: string, unitId: number, prompt: string, shortAnswer: string, deta
   return {
     id: `q-${id}`, unitId, lessonId: suffix.startsWith('kafka-') ? suffix : `u${String(lessonUnitId).padStart(2, '0')}-${lessonSuffix[id] ?? suffix}`, prompt,
     shortAnswer, answer: `${shortAnswer}\n\n${detail}`, keyPoints: points.split('|'),
-    level: unitId >= 17 ? 'Spring Boot + Kafka' : unitId <= 5 ? 'Fundamentos' : unitId <= 8 ? 'Java aplicado' : unitId <= 13 ? 'Backend profesional' : 'Profundización senior',
+    level: unitById.get(unitId)?.level ?? 'Fundamentos',
   };
 }
 
-export const questions: Question[] = [
+const baseQuestions: Question[] = [
   q('git', 1, '¿Para qué sirve Git y qué aporta que sea distribuido?', 'Git registra versiones y permite trabajar en ramas; cada clon conserva el historial disponible.', 'Permite revisar diferencias, recuperar versiones y colaborar. Un commit es local: se comparte con push. Git no es GitHub; GitHub es una plataforma que aloja repositorios y revisiones.', 'Historial local|Ramas y commits|Separar Git de GitHub'),
   q('git-commit', 1, '¿Cómo registrás y compartís un cambio con un mensaje claro?', 'Reviso el diff, preparo archivos con git add, creo git commit -m "mensaje" y comparto con git push.', 'Primero verifico la rama y ejecuto los controles del proyecto. Selecciono archivos concretos para no incluir secretos ni cambios ajenos. Un commit agrupa una intención; push publica los commits en el remoto.', 'Revisar diff|Preparar cambios|Commit local y push remoto'),
   q('git-conflictos', 1, '¿Qué es un conflicto de Git y cómo lo resolvés?', 'Git no puede combinar automáticamente dos cambios; debo decidir el resultado correcto.', 'Consulto git status, comparo ambas intenciones, edito los archivos y elimino los marcadores. Pruebo el resultado, hago git add y continúo el merge o rebase. No elijo una versión completa a ciegas.', 'Entender ambas intenciones|Probar la combinación|Continuar la operación original'),
@@ -180,3 +182,4 @@ export const questions: Question[] = [
   q('kafka-config-externa', 20, '¿Qué configuración externalizarías antes de desplegar el consumidor?', 'Direcciones de brokers y base, identificadores de grupo, topics, credenciales y ajustes que cambian por ambiente.', 'Uso variables o configuración administrada y un gestor de secretos cuando corresponde. Valido valores al arrancar, evito registrar secretos y separo permisos de producir, consumir y administrar. No cambio group id sin entender que altera la posición de consumo y puede disparar reprocesamiento.', 'Configuración por ambiente|Secretos fuera de Git|Identidad de grupo y permisos', 'kafka-consumer-setup'),
   q('kafka-evolucion-json', 18, '¿Cómo evolucionarías un evento JSON sin romper consumidores?', 'Defino reglas de compatibilidad y pruebo productores y consumidores de distintas versiones.', 'Agregar campos opcionales puede ser compatible si el lector tolera desconocidos y tiene defaults razonables. Renombrar, quitar o cambiar tipos puede romper semántica aunque el JSON siga siendo válido. Para cambios incompatibles planifico versión o topic nuevo, coexistencia y migración; no asumo que cada cambio aditivo es seguro.', 'Contrato y semántica|Compatibilidad probada|Migración de cambios incompatibles', 'kafka-json-configuration'),
 ];
+export const questions: Question[] = [...baseQuestions, ...expansionQuestions];

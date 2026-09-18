@@ -1,4 +1,8 @@
 import type { QuizQuestion } from '../types';
+import { expansionQuizzes } from './expansion-questions';
+import { foundationExpansionQuizzes } from './quiz-foundations';
+import { backendSeniorExpansionQuizzes } from './quiz-backend-senior';
+import { kafkaAdvancedExpansionQuizzes } from './quiz-kafka-advanced';
 
 type Choice = [text: string, explanation: string];
 const lessonSuffix: Record<string, string> = {
@@ -14,7 +18,7 @@ function quiz(id: string, unitId: number, prompt: string, correctIndex: number, 
     options: choices.map(([text, explanation]) => ({ text, explanation })) };
 }
 
-export const quizzes: QuizQuestion[] = [
+const baseQuizzes: QuizQuestion[] = [
   quiz('fetch', 1, 'Querés inspeccionar cambios remotos antes de integrarlos. ¿Qué operación corresponde?', 1, [
     ['git reset --hard', 'Puede descartar trabajo y no descarga cambios remotos.'],
     ['git fetch', 'Descarga objetos y actualiza referencias remotas sin integrar automáticamente en tu rama.'],
@@ -256,3 +260,4 @@ export const quizzes: QuizQuestion[] = [
     ['Que se repita el evento y duplique el efecto si no hay deduplicación', 'Una clave única o una estrategia idempotente duradera debe proteger el efecto junto con su registro.'],
   ], 'kafka-save-wikimedia'),
 ];
+export const quizzes: QuizQuestion[] = [...baseQuizzes, ...expansionQuizzes, ...foundationExpansionQuizzes, ...backendSeniorExpansionQuizzes, ...kafkaAdvancedExpansionQuizzes];
