@@ -17,7 +17,7 @@ No necesitás iniciar Kafka, Docker, Spring Boot ni AWS para estudiar o practica
 
 - **Mi espacio:** continuar la última lección, progreso por etapas y temas para reforzar.
 - **Backend Java:** las 25 unidades abiertas, agrupadas en cinco etapas.
-- **AWS & Cloud:** 13 unidades desde fundamentos de nube hasta el proyecto final de pedidos con Spring Boot, SQS, Lambda y DynamoDB simulados con Floci.
+- **AWS & Cloud:** 13 unidades desde fundamentos de nube hasta un proyecto integrador de pedidos con servicios AWS.
 - **Lecciones:** objetivos, prerrequisitos enlazados, explicación, código copiable, respuestas orientativas, práctica con pista/solución ocultas y profundización desplegable.
 - **Preguntas:** filtros por unidad, etapa y favoritos. Incluye 260 preguntas con respuestas revisadas y vinculadas a sus lecciones.
 - **Práctica:** quiz con explicación de las cuatro opciones; simulacro abierto con autoevaluación. Cada sesión toma hasta 10 preguntas distintas (menos si la unidad filtrada no tiene suficientes).
@@ -25,8 +25,6 @@ No necesitás iniciar Kafka, Docker, Spring Boot ni AWS para estudiar o practica
 - **Progreso:** exportación/importación JSON con revisión antes de reemplazar datos. Leer no completa una lección automáticamente.
 
 El progreso pertenece a este navegador y origen (dominio + puerto). El progreso de localhost no aparece automáticamente en Vercel: exportá e importá la copia. Borrar datos del navegador elimina la copia local. Las respuestas libres de los simulacros no se guardan; sí la autoevaluación. La aplicación avisa si el almacenamiento no está disponible.
-
-El proyecto ejecutable del cierre AWS vive en el repositorio independiente [aws-java-floci-labs](https://github.com/JonasGarcia1/aws-java-floci-labs). La plataforma ofrece el recorrido y los enlaces; no ejecuta Java ni Floci en el navegador. Para completar las prácticas guiadas se necesitan Java 21, Maven, Docker y AWS CLI; la prueba integral automatizada usa el SDK de AWS. Desplegar en AWS real es opcional.
 
 ## Validar
 
@@ -53,3 +51,5 @@ Las lecciones usan `## Concepto`, `## Ejemplo`, `## En entrevista`, `## Error fr
 ## Decisiones de contenido
 
 Ejemplos principales: Java 21; Spring Boot 3.5 y Kafka 3.9 en los laboratorios Java. Los fragmentos parciales y pseudocódigo están identificados. Completar lecciones no equivale a experiencia profesional.
+
+La plataforma presenta contenido y enlaza laboratorios externos desde Recursos. No ejecuta código ni requiere iniciar servicios para estudiar; cada laboratorio indica sus propios requisitos y pasos.
