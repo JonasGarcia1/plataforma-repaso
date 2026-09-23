@@ -1,7 +1,8 @@
 import type { Progress, StudyStatus, Question } from '../types';
 export const STORAGE_KEY = 'repaso-java-progress-v1';
+export const AWS_QUIZ_REVISION = 2;
 export const statusLabels: Record<StudyStatus,string> = { pendiente:'Pendiente', 'en-curso':'En curso', repasado:'Repasado', reforzar:'Necesito reforzar' };
-export const emptyProgress = (): Progress => ({ version:1, statuses:{}, favorites:[], quizResults:{}, interviewResults:{} });
+export const emptyProgress = (): Progress => ({ version:1, awsQuizRevision:AWS_QUIZ_REVISION, statuses:{}, favorites:[], quizResults:{}, interviewResults:{} });
 export const normalize = (value:string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es').trim();
 export function matches(query:string, ...values:string[]) {
  const text=normalize(values.join(' '));
@@ -31,11 +32,19 @@ export function parseProgress(text:string):Progress {
   interviewResults[key]=value;
  }
  if(input.lastLesson!==undefined && (typeof input.lastLesson!=='string' || !validId(input.lastLesson))) throw new Error('La última lección no es válida.');
- return {version:1,statuses,favorites:[...new Set(input.favorites as string[])],quizResults,interviewResults,lastLesson:input.lastLesson as string|undefined};
+ const savedAwsQuizRevision=typeof input.awsQuizRevision==='number'&&Number.isInteger(input.awsQuizRevision)?input.awsQuizRevision:1;
+ const currentQuizResults=savedAwsQuizRevision<AWS_QUIZ_REVISION?Object.fromEntries(Object.entries(quizResults).filter(([id])=>!id.startsWith('aws-quiz-'))):quizResults;
+ return {version:1,awsQuizRevision:AWS_QUIZ_REVISION,statuses,favorites:[...new Set(input.favorites as string[])],quizResults:currentQuizResults,interviewResults,lastLesson:input.lastLesson as string|undefined};
 }
-export function readProgress(storage:Pick<Storage,'getItem'>):{progress:Progress;warning:string} {
- try { const data=storage.getItem(STORAGE_KEY); return {progress:data?parseProgress(data):emptyProgress(),warning:''}; }
- catch { return {progress:emptyProgress(),warning:'No pudimos recuperar el progreso guardado. Podés seguir estudiando o importar una copia. El dato anterior no se reemplaza hasta que hagas un cambio.'}; }
+export function readProgress(storage:Pick<Storage,'getItem'>):{progress:Progress;warning:string;migrated:boolean} {
+ try {
+  const data=storage.getItem(STORAGE_KEY);
+  if(!data)return {progress:emptyProgress(),warning:'',migrated:false};
+  const oldValue=JSON.parse(data) as {awsQuizRevision?:unknown};
+  const progress=parseProgress(data);
+  return {progress,warning:'',migrated:oldValue.awsQuizRevision!==AWS_QUIZ_REVISION};
+ }
+ catch { return {progress:emptyProgress(),warning:'No pudimos recuperar el progreso guardado. Podés seguir estudiando o importar una copia. El dato anterior no se reemplaza hasta que hagas un cambio.',migrated:false}; }
 }
 export function sampleUnique<T extends {id:string}>(items:T[], count:number, random= Math.random):T[] {
  const pool=[...new Map(items.map(item=>[item.id,item])).values()];

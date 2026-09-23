@@ -1,6 +1,6 @@
-# Repaso · Backend Java
+# Repaso · Backend Java y AWS
 
-Plataforma personal de estudio en español: **5 etapas, 25 unidades, 87 lecciones, 195 preguntas y 250 quizzes**, desde fundamentos hasta un laboratorio completo de Spring Boot + Kafka. React + Vite + TypeScript, sin cuentas ni backend. Los servicios Java de los laboratorios se ejecutan por separado.
+Plataforma personal de estudio en español con dos módulos: **Backend Java** (5 etapas, 25 unidades, 87 lecciones, 195 preguntas y 250 quizzes) y **AWS & Cloud** (5 etapas, 13 unidades, 41 lecciones, 65 preguntas y 130 quizzes). React + Vite + TypeScript; no requiere cuenta ni backend.
 
 ## Abrir en tu computadora
 
@@ -11,19 +11,22 @@ npm ci
 npm run dev
 ```
 
-No necesitás iniciar Kafka, Docker ni Spring Boot para estudiar o practicar en la plataforma.
+No necesitás iniciar Kafka, Docker, Spring Boot ni AWS para estudiar o practicar en la plataforma.
 
 ## Usar la plataforma
 
 - **Mi espacio:** continuar la última lección, progreso por etapas y temas para reforzar.
-- **Roadmap Java:** las 25 unidades abiertas, agrupadas en cinco etapas, con búsqueda por conceptos y estados manuales.
+- **Backend Java:** las 25 unidades abiertas, agrupadas en cinco etapas.
+- **AWS & Cloud:** 13 unidades desde fundamentos de nube hasta el proyecto final de pedidos con Spring Boot, SQS, Lambda y DynamoDB simulados con Floci.
 - **Lecciones:** objetivos, prerrequisitos enlazados, explicación, código copiable, respuestas orientativas, práctica con pista/solución ocultas y profundización desplegable.
-- **Preguntas:** filtros por unidad, etapa y favoritos. Incluye 195 respuestas revisadas y vinculadas a sus lecciones.
+- **Preguntas:** filtros por unidad, etapa y favoritos. Incluye 260 preguntas con respuestas revisadas y vinculadas a sus lecciones.
 - **Práctica:** quiz con explicación de las cuatro opciones; simulacro abierto con autoevaluación. Cada sesión toma hasta 10 preguntas distintas (menos si la unidad filtrada no tiene suficientes).
-- **Recursos:** glosario, documentación y pasos para usar los laboratorios locales, incluido `springboot-kafka-roadmap-course/advanced-labs`.
+- **Recursos:** glosario y documentación filtrados por módulo; guías para laboratorios enlazados desde sus módulos.
 - **Progreso:** exportación/importación JSON con revisión antes de reemplazar datos. Leer no completa una lección automáticamente.
 
 El progreso pertenece a este navegador y origen (dominio + puerto). El progreso de localhost no aparece automáticamente en Vercel: exportá e importá la copia. Borrar datos del navegador elimina la copia local. Las respuestas libres de los simulacros no se guardan; sí la autoevaluación. La aplicación avisa si el almacenamiento no está disponible.
+
+El proyecto ejecutable del cierre AWS vive en el repositorio independiente [aws-java-floci-labs](https://github.com/JonasGarcia1/aws-java-floci-labs). La plataforma ofrece el recorrido y los enlaces; no ejecuta Java ni Floci en el navegador. Para completar las prácticas guiadas se necesitan Java 21, Maven, Docker y AWS CLI; la prueba integral automatizada usa el SDK de AWS. Desplegar en AWS real es opcional.
 
 ## Validar
 
@@ -33,18 +36,20 @@ npm run build
 npm run preview
 ```
 
-Las pruebas comprueban integridad del contenido, las 22 lecciones Kafka, opciones de quizzes, búsqueda, selección sin repetición, importación/exportación, recuperación ante datos inválidos y preferencias de apariencia. La revisión Java y sus límites están en `docs/fundamentals-review.md`, `docs/backend-review.md` y `docs/kafka-bank-review.md`.
+Las pruebas comprueban los catálogos, las referencias entre módulos y lecciones, las 22 lecciones Kafka, opciones de quizzes, búsqueda, importación/exportación, recuperación ante datos inválidos y preferencias de apariencia.
 
 ## Mantener y ampliar el contenido
 
-- `src/content/lessons/`: Markdown de cada lección, cargado bajo demanda.
+- `src/content/lessons/` y `src/content/aws/lessons/`: Markdown por módulo, cargado bajo demanda.
 - `src/content/fundamentals.ts`, `backend.ts` y `kafka.ts`: metadatos tipados; `units.ts` organiza etapas y unidades.
+- `src/content/aws/`: etapas, unidades, lecciones, glosario, preguntas y quizzes AWS.
+- `src/content/catalog.ts`: catálogo común consumido por las pantallas compartidas.
 - `questions.ts` y `quizzes.ts`: preguntas y sus relaciones con lecciones.
 - `src/lib/study.ts`: búsqueda, muestreo y validación del progreso portable.
 - `src/types.ts`: contratos compartidos; los identificadores son estables para conservar progreso.
 
-Las lecciones usan `## Concepto`, `## Ejemplo`, `## En entrevista`, `## Error frecuente`, `## Práctica`, `### Pista`, `### Solución`, `## Profundización`. Los encabezados controlan el índice y los desplegables. La apariencia sigue el sistema en la primera visita y permite elegir Claro, Oscuro o Sistema. Para incorporar Frontend/React/AWS se agregarán contenidos y navegación por módulo sobre estos mismos componentes, sin cambiar los IDs Java existentes.
+Las lecciones usan `## Concepto`, `## Ejemplo`, `## En entrevista`, `## Error frecuente`, `## Práctica`, `### Pista`, `### Solución`, `## Profundización`. Los encabezados controlan el índice y los desplegables. La apariencia sigue el sistema en la primera visita y permite elegir Claro, Oscuro o Sistema. Los IDs Java y el progreso v1 permanecen estables; los IDs AWS usan el prefijo `aws-`.
 
 ## Decisiones de contenido
 
-Ejemplos principales: Java 21; Spring Boot 3.5 y Kafka 3.9 en el laboratorio cuando corresponde. El entorno Kafka conserva ZooKeeper solo con fines didácticos y las lecciones explican la alternativa actual con KRaft. Los fragmentos parciales y pseudocódigo están identificados. Los temas senior enseñan criterios y límites; completar lecciones no equivale a experiencia profesional. Las fuentes externas son documentación complementaria y las tipografías web usan Google Fonts con fuentes locales de respaldo.
+Ejemplos principales: Java 21; Spring Boot 3.5 y Kafka 3.9 en los laboratorios Java. Los fragmentos parciales y pseudocódigo están identificados. Completar lecciones no equivale a experiencia profesional.

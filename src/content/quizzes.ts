@@ -261,3 +261,4 @@ const baseQuizzes: QuizQuestion[] = [
   ], 'kafka-save-wikimedia'),
 ];
 export const quizzes: QuizQuestion[] = [...baseQuizzes, ...expansionQuizzes, ...foundationExpansionQuizzes, ...backendSeniorExpansionQuizzes, ...kafkaAdvancedExpansionQuizzes];
+

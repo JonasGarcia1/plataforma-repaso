@@ -183,3 +183,4 @@ const baseQuestions: Question[] = [
   q('kafka-evolucion-json', 18, '¿Cómo evolucionarías un evento JSON sin romper consumidores?', 'Defino reglas de compatibilidad y pruebo productores y consumidores de distintas versiones.', 'Agregar campos opcionales puede ser compatible si el lector tolera desconocidos y tiene defaults razonables. Renombrar, quitar o cambiar tipos puede romper semántica aunque el JSON siga siendo válido. Para cambios incompatibles planifico versión o topic nuevo, coexistencia y migración; no asumo que cada cambio aditivo es seguro.', 'Contrato y semántica|Compatibilidad probada|Migración de cambios incompatibles', 'kafka-json-configuration'),
 ];
 export const questions: Question[] = [...baseQuestions, ...expansionQuestions];
+
