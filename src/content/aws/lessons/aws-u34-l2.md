@@ -14,8 +14,9 @@ Construye el artefacto de forma reproducible y prueba el mismo tipo de evento qu
 
 ## En entrevista
 
-**Breve:** Verificá lógica, contrato del evento y paquete de despliegue con niveles de prueba distintos. **Ampliada:** explica qué aporta una prueba local y qué aún debe validarse en AWS.
+**Pregunta:** ¿Qué elementos debe incluir el paquete desplegable de una Lambda Java?
 
+**Breve:** Verificá lógica, contrato del evento y paquete de despliegue con niveles de prueba distintos. **Ampliada:** explica qué aporta una prueba local y qué aún debe validarse en AWS.
 ## Error frecuente
 
 Tratar una prueba unitaria como evidencia de que el ZIP/JAR, handler y permisos configurados funcionarán. Incluye una comprobación del artefacto y una prueba de integración representativa.

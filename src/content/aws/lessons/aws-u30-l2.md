@@ -19,8 +19,9 @@ Esta clave permite consultar pedidos del cliente `17` y ordenar o filtrar por la
 
 ## En entrevista
 
-**Breve:** En DynamoDB la clave primaria define cómo localizar y agrupar elementos; el modelo debe responder consultas conocidas. **Ampliada:** da una clave para listar pedidos de un cliente, una para obtener uno puntual y explica el costo de una consulta que no coincide con la clave.
+**Pregunta:** ¿Cómo influye la clave primaria de DynamoDB en los patrones de consulta?
 
+**Breve:** En DynamoDB la clave primaria define cómo localizar y agrupar elementos; el modelo debe responder consultas conocidas. **Ampliada:** da una clave para listar pedidos de un cliente, una para obtener uno puntual y explica el costo de una consulta que no coincide con la clave.
 ## Error frecuente
 
 Modelar tablas como si fueran relacionales y esperar joins o filtros arbitrarios eficientes. La consulta por un atributo no indexado puede requerir un scan, que lee muchos elementos y escala mal.

@@ -17,8 +17,9 @@ La región determina el destino regional y participa en la firma de solicitudes.
 
 ## En entrevista
 
-**Breve:** Configurá el SDK por ambiente con región explícita y credenciales provistas por el entorno. **Ampliada:** explica cómo una aplicación local y una carga en AWS obtienen configuraciones distintas sin exponer secretos.
+**Pregunta:** ¿Qué configura un cliente del SDK y cómo elegirías la fuente de credenciales?
 
+**Breve:** Configurá el SDK por ambiente con región explícita y credenciales provistas por el entorno. **Ampliada:** explica cómo una aplicación local y una carga en AWS obtienen configuraciones distintas sin exponer secretos.
 ## Error frecuente
 
 Empaquetar endpoint local o credenciales ficticias en el artefacto productivo. Separa configuración de perfiles y falla al iniciar si una configuración requerida no está definida.

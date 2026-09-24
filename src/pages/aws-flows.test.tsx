@@ -35,8 +35,8 @@ describe('módulo AWS & Cloud',()=>{
 
  it('mantiene las preguntas y el quiz limitados a la unidad AWS elegida',()=>{
   open('/aws/preguntas?unidad=26');
-  expect(screen.getByText('5 preguntas encontradas')).toBeInTheDocument();
-  expect(screen.getAllByRole('button',{name:'Guardar en favoritos'})).toHaveLength(5);
+  expect(screen.getByText('6 preguntas encontradas')).toBeInTheDocument();
+  expect(screen.getAllByRole('button',{name:'Guardar en favoritos'})).toHaveLength(6);
   cleanup();
   open('/aws/practica');
   fireEvent.change(screen.getByLabelText('¿Qué querés practicar?'),{target:{value:'26'}});

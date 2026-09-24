@@ -20,8 +20,9 @@ Lambda puede reutilizar el entorno entre invocaciones, así que inicializar un c
 
 ## En entrevista
 
-**Breve:** El handler adapta evento y contexto y delega el trabajo. **Ampliada:** describe qué inicializarías una vez, qué estado evitarías compartir y cómo probarías un evento inválido.
+**Pregunta:** ¿Qué responsabilidades debería tener un handler de AWS Lambda?
 
+**Breve:** El handler adapta evento y contexto y delega el trabajo. **Ampliada:** describe qué inicializarías una vez, qué estado evitarías compartir y cómo probarías un evento inválido.
 ## Error frecuente
 
 Suponer que cada invocación recibe un proceso limpio. Trata el entorno como reutilizable y evita datos de usuario o estado de request en campos estáticos.

@@ -19,8 +19,9 @@ En ambos casos los consumidores deben manejar fallos y posibles entregas repetid
 
 ## En entrevista
 
-**Breve:** SNS distribuye publicaciones a suscriptores; EventBridge filtra y enruta eventos mediante reglas. **Ampliada:** recomienda uno para notificar varios destinos del mismo mensaje y otro para enrutar distintos tipos de eventos según su contenido.
+**Pregunta:** ¿Cuándo usarías SNS con varias colas SQS suscriptas?
 
+**Breve:** SNS distribuye publicaciones a suscriptores; EventBridge filtra y enruta eventos mediante reglas. **Ampliada:** recomienda uno para notificar varios destinos del mismo mensaje y otro para enrutar distintos tipos de eventos según su contenido.
 ## Error frecuente
 
 Elegir por familiaridad sin revisar los destinos, garantías y forma de reprocesar. Una suscripción directa puede acoplar al publicador con disponibilidad del consumidor; una cola por consumidor permite acumular trabajo y aislar ritmos.

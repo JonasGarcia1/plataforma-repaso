@@ -50,6 +50,8 @@ No: continúa desde el offset confirmado válido. earliest se aplica si falta of
 
 ## Profundización
 
+Antes de ajustar `acks` o los offsets, repasá [replicación y confirmaciones](/leccion/kafka-replication-acks) y [garantías de entrega](/leccion/kafka-delivery-semantics): la configuración del cliente expresa una decisión de durabilidad y reproceso.
+
 La durabilidad depende también de replicación y min.insync.replicas. No deduzcas tolerancia a fallos solamente de acks=all. En el laboratorio encontrás textListenerFactory y learning-text-group; no son equivalentes al grupo de Wikimedia.
 
 **Código y guías locales.** Las rutas se resuelven desde la carpeta repaso-roadmap. Se consultan en tu equipo; no son endpoints de esta plataforma ni servicios desplegados en Vercel.
@@ -63,4 +65,3 @@ La durabilidad depende también de replicación y min.insync.replicas. No deduzc
 - Sé vincular serializer con deserializer.
 - Sé explicar acks=all.
 - Sé decir cuándo aplica earliest.
-

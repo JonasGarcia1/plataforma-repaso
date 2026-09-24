@@ -19,8 +19,9 @@ RDS podría ser la fuente de verdad si se requieren relaciones y transacciones; 
 
 ## En entrevista
 
-**Breve:** RDS prioriza SQL y relaciones; DynamoDB patrones de acceso por clave; ElastiCache acelera datos reconstruibles o recargables. **Ampliada:** compara las opciones para un catálogo y explica la estrategia si la caché pierde una entrada.
+**Pregunta:** ¿Cuándo elegirías RDS, DynamoDB o ElastiCache?
 
+**Breve:** RDS prioriza SQL y relaciones; DynamoDB patrones de acceso por clave; ElastiCache acelera datos reconstruibles o recargables. **Ampliada:** compara las opciones para un catálogo y explica la estrategia si la caché pierde una entrada.
 ## Error frecuente
 
 Guardar en caché como única copia un dato que no se puede reconstruir, o asumir que TTL garantiza datos frescos. El TTL limita cuánto dura una entrada, pero puede haber datos obsoletos hasta que venza.

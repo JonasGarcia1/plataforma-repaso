@@ -17,8 +17,9 @@ Una transacción puede crear el pedido y sus líneas juntas o revertir los cambi
 
 ## En entrevista
 
-**Breve:** RDS administra infraestructura de motores relacionales; Multi-AZ aporta failover y backups permiten recuperar datos según su retención. **Ampliada:** explica por qué el dominio necesita SQL/transacciones y cómo manejarías conexiones y restauración.
+**Pregunta:** ¿Qué tareas administra RDS y cuáles siguen siendo responsabilidad del equipo?
 
+**Breve:** RDS administra infraestructura de motores relacionales; Multi-AZ aporta failover y backups permiten recuperar datos según su retención. **Ampliada:** explica por qué el dominio necesita SQL/transacciones y cómo manejarías conexiones y restauración.
 ## Error frecuente
 
 Confundir standby Multi-AZ con backup o con una réplica usada para escalar lecturas. El failover busca disponibilidad; una restauración desde backup aborda ciertos borrados o daños lógicos. Debes ensayar ambos caminos y medir su tiempo.

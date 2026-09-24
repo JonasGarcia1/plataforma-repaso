@@ -15,8 +15,9 @@ La política IAM controla quién puede leer el secreto y quién puede usar la cl
 
 ## En entrevista
 
-**Breve:** Diferenciá almacenamiento/rotación de secretos y administración de claves. **Ampliada:** explica cómo limitarías acceso, rotarías una credencial y verificarías que nunca aparezca en logs.
+**Pregunta:** ¿Qué diferencia hay entre almacenar un secreto en Secrets Manager y administrar una clave con KMS?
 
+**Breve:** Diferenciá almacenamiento/rotación de secretos y administración de claves. **Ampliada:** explica cómo limitarías acceso, rotarías una credencial y verificarías que nunca aparezca en logs.
 ## Error frecuente
 
 Creer que cifrar un secreto lo hace seguro para cualquier rol. Controla tanto el permiso de lectura como el uso de la clave y audita accesos.

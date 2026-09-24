@@ -20,8 +20,9 @@ Si una instancia no responde al health check, el ALB deja de enviarle solicitude
 
 ## En entrevista
 
-**Breve:** EC2 da control de una máquina virtual; un ALB reparte tráfico entre destinos sanos y Auto Scaling ajusta la cantidad de instancias. **Ampliada:** explica qué métrica impulsa el escalado, cómo se detecta una instancia fallida y qué dependencia podría seguir siendo un cuello de botella.
+**Pregunta:** ¿Qué factores considerarías al elegir el tipo y tamaño de una instancia EC2?
 
+**Breve:** EC2 da control de una máquina virtual; un ALB reparte tráfico entre destinos sanos y Auto Scaling ajusta la cantidad de instancias. **Ampliada:** explica qué métrica impulsa el escalado, cómo se detecta una instancia fallida y qué dependencia podría seguir siendo un cuello de botella.
 ## Error frecuente
 
 Suponer que más instancias siempre aumentan el rendimiento. Si todas compiten por una base saturada, solo aumenta la presión. Observa latencia y errores de extremo a extremo además de CPU, y define límites de capacidad.

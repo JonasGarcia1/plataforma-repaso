@@ -28,8 +28,11 @@ Un registro que falla aparece como elemento fallido en la respuesta del handler 
 
 ## En entrevista
 
-**Breve:** ¿Para qué sirve una DLQ? **Ampliada:** explicá cómo distinguís fallo temporal de mensaje venenoso y qué señal operativa vigilarías.
+**Pregunta:** ¿Por qué reportar fallos parciales al consumir lotes de SQS con Lambda?
 
+**Breve:** El reporte parcial permite reintentar solo los mensajes que fallaron, en vez de repetir también los que ya se procesaron bien.
+
+**Ampliada:** La función devuelve los identificadores de los registros fallidos y el mapeo reintenta esos mensajes según su política. Distinguiría una falla transitoria de un mensaje inválido persistente; configuraría una DLQ o cola de redrive y alertaría sobre antigüedad y cantidad de mensajes para corregir y reprocesar de forma segura.
 ## Error frecuente
 
 Pensar que enviar un mensaje a la DLQ resuelve el problema. La DLQ conserva evidencia; una persona o proceso debe investigar la causa, corregirla y decidir si corresponde redrive. También hay que alertar por cantidad y antigüedad de mensajes.

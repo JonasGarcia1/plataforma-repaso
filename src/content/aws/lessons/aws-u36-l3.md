@@ -15,8 +15,9 @@ El SDK Java tiene estrategia de reintento configurable y defaults que pueden var
 
 ## En entrevista
 
-**Breve:** Limitá duración e intentos y reintenta solo fallos transitorios con protección contra duplicados. **Ampliada:** explica qué puede significar un timeout de escritura y cómo controlarías el costo de la política.
+**Pregunta:** ¿Cómo limitarías el impacto de retries y timeouts durante una degradación?
 
+**Breve:** Limitá duración e intentos y reintenta solo fallos transitorios con protección contra duplicados. **Ampliada:** explica qué puede significar un timeout de escritura y cómo controlarías el costo de la política.
 ## Error frecuente
 
 Reintentar una solicitud no idempotente a ciegas: el primer intento pudo completarse aunque la respuesta se haya perdido. Evita multiplicar retries en varias capas sin un presupuesto común.

@@ -15,8 +15,9 @@ Usa un stack y nombres aislados para práctica. Revisa el conjunto de cambios an
 
 ## En entrevista
 
-**Breve:** Describí el ciclo de infraestructura declarativa desde validación hasta limpieza verificable. **Ampliada:** explica cómo reducirías el alcance y el costo de una práctica en una cuenta compartida.
+**Pregunta:** ¿Qué recursos y riesgos incluye un despliegue con AWS SAM?
 
+**Breve:** Describí el ciclo de infraestructura declarativa desde validación hasta limpieza verificable. **Ampliada:** explica cómo reducirías el alcance y el costo de una práctica en una cuenta compartida.
 ## Error frecuente
 
 Asumir que cerrar la terminal revierte un deploy o que `sam delete` elimina recursos retenidos con políticas de conservación. Mantén inventario y confirma el estado final en la cuenta.

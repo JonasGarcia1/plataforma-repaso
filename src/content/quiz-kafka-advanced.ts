@@ -2,10 +2,10 @@ import type { QuizQuestion } from '../types';
 
 type Choice = [text: string, explanation: string];
 
-function q(unitId: number, number: number, lessonId: string, prompt: string, correctIndex: number, options: Choice[]): QuizQuestion {
+function q(unitId: number, number: number, lessonId: string, prompt: string, correctIndex: number, options: Choice[], assignedUnitId = unitId): QuizQuestion {
   return {
     id: `quiz-extra-u${unitId}-${String(number).padStart(2, '0')}`,
-    unitId,
+    unitId: assignedUnitId,
     lessonId,
     prompt,
     correctIndex,
@@ -37,19 +37,19 @@ export const kafkaAdvancedExpansionQuizzes: QuizQuestion[] = [
     ['El orden de los imports Java', 'Los imports no cambian la dirección publicada por Docker.'],
     ['El color de Kafka UI', 'La interfaz visual no decide los listeners disponibles.'],
     ['El listener externo publicado, por ejemplo localhost:29092', 'Desde el host se usa la dirección expuesta por Docker, no el hostname interno.'],
-  ]),
+  ], 18),
   q(17, 5, 'kafka-install-kafka', '¿Qué diferencia práctica hay entre KRaft y ZooKeeper en un curso actual?', 1, [
     ['KRaft impide usar topics', 'Ambos modos administran un cluster capaz de alojar topics y particiones.'],
     ['KRaft elimina la dependencia de ZooKeeper para metadatos', 'Kafka moderno puede gestionar metadatos con su propio quorum de controladores.'],
     ['ZooKeeper serializa los payloads JSON', 'Los serializers trabajan en productores y consumidores, no en el coordinador.'],
     ['KRaft convierte un broker en una base relacional', 'Kafka sigue siendo un log distribuido, no una base SQL.'],
-  ]),
+  ], 18),
   q(17, 6, 'kafka-create-spring', '¿Qué aporta spring-kafka al proyecto Spring Boot?', 2, [
     ['Una base MySQL embebida automáticamente', 'La dependencia no reemplaza la configuración de una base persistente.'],
     ['Un gateway HTTP público por defecto', 'Los endpoints REST se definen explícitamente en controllers propios.'],
     ['Integración con KafkaTemplate y listeners configurables', 'Facilita publicar y consumir mediante beans y propiedades de Spring.'],
     ['Un esquema Avro obligatorio', 'El formato de mensajes se elige según el contrato y las necesidades.'],
-  ]),
+  ], 18),
   q(17, 7, 'kafka-core-concepts', '¿Cuál es un efecto de aumentar particiones de un topic?', 0, [
     ['Puede aumentar el paralelismo disponible de consumo', 'Más particiones permiten asignar más trabajo concurrente dentro de un grupo.'],
     ['Garantiza orden global entre todas las keys', 'El orden solo se conserva dentro de cada partición, no entre ellas.'],
@@ -436,22 +436,82 @@ export const kafkaAdvancedExpansionQuizzes: QuizQuestion[] = [
     ['Una tabla SQL creada por JPA', 'KTable es una abstracción de streaming, no una entidad relacional.'],
     ['Una replica física de cada partición', 'La replicación es una propiedad del cluster y sus brokers.'],
   ]),
-  q(25, 6, 'u25-c', '¿Qué protege TLS en una conexión Kafka?', 2, [
+  q(25, 6, 'u25-d', '¿Qué protege TLS en una conexión Kafka?', 2, [
     ['La autorización a cada topic', 'Los permisos sobre topics y grupos se expresan mediante ACLs.'],
     ['La identidad del usuario sin credenciales', 'La autenticación requiere un mecanismo como SASL y sus credenciales.'],
     ['La confidencialidad e integridad del tráfico en tránsito', 'Cifra la comunicación y ayuda a evitar manipulación durante el transporte.'],
     ['La compatibilidad de schemas Avro', 'La evolución de contratos se gestiona con schemas y políticas de compatibilidad.'],
   ]),
-  q(25, 7, 'u25-c', '¿Qué limita el paralelismo máximo de un consumer group sobre un topic?', 0, [
+  q(25, 7, 'u25-e', '¿Qué limita el paralelismo máximo de un consumer group sobre un topic?', 0, [
     ['La cantidad de particiones asignables', 'No puede haber más consumers activos con trabajo que particiones disponibles.'],
     ['La cantidad de campos del payload', 'El número de propiedades no determina la distribución de particiones.'],
     ['El tamaño del disco del consumer', 'Afecta operación, pero no la asignación lógica de trabajo.'],
     ['La versión de Java usada por el producer', 'El runtime del producer no define la concurrencia del grupo consumidor.'],
   ]),
-  q(25, 8, 'u25-c', '¿Qué decisión necesita una estimación de capacidad Kafka?', 3, [
-    ['Solo el color del dashboard de métricas', 'La apariencia no describe volumen, retención ni uso de recursos.'],
-    ['El framework HTTP elegido para el producer', 'Puede influir en una app, pero no basta para dimensionar el cluster.'],
-    ['El nombre comercial del evento', 'Un nombre no informa tasa, tamaño ni política de almacenamiento.'],
+  q(25, 8, 'u25-e', '¿Qué decisión necesita una estimación de capacidad Kafka?', 3, [
+    ['Solo la cantidad de brokers actual', 'Sin tasa de eventos, tamaño y retención no alcanza para estimar almacenamiento ni throughput.'],
+    ['Solo la latencia HTTP del producer', 'La latencia de entrada no describe el tráfico del topic ni cuánto tiempo se conservarán los records.'],
+    ['Solo la cantidad de consumers previstos', 'También importan particiones, distribución de keys, volumen, retención y capacidad de los brokers.'],
     ['Volumen, tamaño de mensajes, retención, particiones y crecimiento', 'Esos datos permiten estimar almacenamiento, throughput y necesidades de réplica.'],
+  ]),
+  q(39, 1, 'kafka-replication-acks', 'Un producer debe esperar confirmación de las réplicas sincronizadas antes de considerar durable el envío. ¿Qué configuración se alinea mejor?', 2, [
+    ['acks=0 y replication factor alto', 'Con acks=0 el producer no espera confirmación del broker, aunque existan réplicas.'],
+    ['acks=1 y min.insync.replicas=3', 'acks=1 espera confirmación del líder; el mínimo ISR no convierte esa espera en confirmación de todas las réplicas.'],
+    ['acks=all con min.insync.replicas apropiado y réplicas distribuidas', 'La escritura espera al ISR requerido y el mínimo configura cuándo el broker acepta esa condición.'],
+    ['acks=all sin revisar el estado del ISR', 'La política de confirmación debe evaluarse junto con réplicas sincronizadas y el mínimo exigido.'],
+  ]),
+  q(39, 2, 'kafka-replication-acks', 'Un topic tiene replication factor 3 y el ISR cae por debajo de min.insync.replicas. ¿Qué resultado debe esperar el producer con acks=all?', 1, [
+    ['Éxito, porque siempre se espera a las tres copias configuradas', 'acks=all se refiere al conjunto ISR y no garantiza que todas las réplicas configuradas sigan sincronizadas.'],
+    ['La escritura puede rechazarse mientras no se cumpla el mínimo configurado', 'El mínimo ISR establece cuántas réplicas sincronizadas se requieren para aceptar escrituras con acks=all.'],
+    ['El registro se borra del líder para mantener consistencia', 'La falta de réplicas suficientes no ordena borrar automáticamente el log del líder.'],
+    ['Kafka crea brokers nuevos para completar el mínimo', 'La configuración no aprovisiona capacidad ni brokers automáticamente.'],
+  ]),
+  q(39, 3, 'kafka-replication-acks', '¿Qué describe replication factor 3 para una partición?', 0, [
+    ['Tres copias de esa partición, incluida la líder, ubicadas en brokers según la topología', 'El factor cuenta réplicas de partición; no representa tres particiones distintas.'],
+    ['Tres consumers activos para cada consumer group', 'La distribución de consumers depende del número de particiones y miembros del grupo.'],
+    ['Tres grupos que reciben cada registro', 'Los grupos se crean en los clientes y no los determina el factor de réplica.'],
+    ['Tres días de retención garantizada', 'La retención se configura por tiempo/tamaño y no se expresa con replication factor.'],
+  ]),
+  q(39, 4, 'kafka-retention-compaction', 'Un grupo consume un evento y otro grupo se incorpora horas después. ¿Qué determina si puede leer ese evento?', 3, [
+    ['Que el primer grupo ya haya confirmado el offset', 'El progreso de un grupo no elimina por sí solo el registro para todos los demás.'],
+    ['La cantidad de consumidores que usó el primer grupo', 'El tamaño del grupo no decide cuánto tiempo permanece el registro en el topic.'],
+    ['Que el producer haya cerrado su conexión', 'Cerrar el producer no modifica la política de conservación del topic.'],
+    ['Que el registro siga disponible según retención o compactación y exista una posición de lectura válida', 'Los registros pueden desaparecer por política de conservación aunque un grupo aún no los haya leído.'],
+  ]),
+  q(39, 5, 'kafka-retention-compaction', 'En un topic compactado se publica un valor null para una key. ¿Qué representa normalmente?', 2, [
+    ['Un offset confirmado para todo el cluster', 'Los offsets identifican posiciones por partición y no expresan eliminación de una key.'],
+    ['Una pausa del consumer group', 'La pausa afecta el consumo del grupo y no modifica el estado compactado.'],
+    ['Un tombstone que marca esa key para eliminación posterior', 'La limpieza es asíncrona y conserva el marcador durante una ventana definida.'],
+    ['Una solicitud para aumentar el replication factor', 'El valor del record no cambia la topología de réplicas.'],
+  ]),
+  q(39, 6, 'kafka-delivery-semantics', 'El consumer confirma el offset antes de guardar el evento en SQL y luego falla al persistirlo. ¿Qué efecto puede producirse?', 1, [
+    ['El mismo evento se garantiza duplicado en cada reinicio', 'Confirmar temprano puede avanzar el progreso y evitar la repetición, con riesgo de perder el efecto externo.'],
+    ['El registro puede quedar sin persistir porque el grupo ya avanzó', 'El offset confirmado permite reanudar después de ese registro aunque la escritura SQL haya fallado.'],
+    ['La transacción Kafka revierte automáticamente la base SQL', 'Una transacción Kafka no incluye por sí sola operaciones de una base externa.'],
+    ['Kafka espera al siguiente consumer para deshacer el commit', 'El protocolo no revierte automáticamente un offset confirmado por el fallo SQL.'],
+  ]),
+  q(39, 7, 'kafka-delivery-semantics', 'La base SQL guardó el efecto, pero el proceso cayó antes de confirmar el offset. ¿Qué protección evita repetir el efecto?', 0, [
+    ['Deduplicar con un identificador estable y una restricción o registro durable en la misma base', 'La redelivery puede ocurrir; la base debe reconocerla de forma persistente.'],
+    ['Habilitar idempotencia solo en el producer', 'La idempotencia del producer no evita que un consumer aplique dos veces un efecto externo.'],
+    ['Aumentar replication factor del topic', 'Las réplicas protegen disponibilidad de datos, pero no deduplican el efecto SQL.'],
+    ['Cambiar el group id cada vez que se reinicia', 'Un grupo nuevo puede volver a leer muchos registros y no protege la escritura duplicada.'],
+  ]),
+  q(39, 8, 'kafka-delivery-semantics', '¿Cuál es el alcance correcto de una transacción Kafka al escribir además en MySQL?', 3, [
+    ['Confirma automáticamente Kafka y MySQL como una sola transacción global', 'La transacción Kafka no incorpora automáticamente el commit de una base externa.'],
+    ['Evita todos los duplicados de consumidores sin cambios en la aplicación', 'El efecto externo aún puede repetirse en una ventana entre commit y confirmación de offset.'],
+    ['Reemplaza las restricciones únicas y la idempotencia SQL', 'La base necesita su propia protección para el efecto persistido.'],
+    ['Puede coordinar operaciones Kafka, pero la escritura SQL requiere una estrategia adicional', 'La garantía debe expresarse dentro del límite real de cada sistema participante.'],
+  ]),
+  q(39, 9, 'kafka-rebalance-scaling', 'Un topic tiene cuatro particiones y un grupo ya tiene cuatro consumers asignados. ¿Qué aporta sumar otros cuatro al mismo grupo?', 2, [
+    ['Duplica la lectura de cada partición para procesar más rápido', 'En el modelo tradicional, una partición de un grupo se asigna a un solo consumer a la vez.'],
+    ['Crea cuatro particiones nuevas durante el rebalanceo', 'Los miembros del grupo no cambian la cantidad configurada de particiones.'],
+    ['No aumenta el paralelismo de lectura de ese topic; algunos consumers quedan sin asignación', 'El número de particiones limita cuántos miembros pueden leer en paralelo dentro del grupo.'],
+    ['Convierte el grupo en dos grupos con offsets independientes', 'Para progreso independiente se configuran group IDs distintos.'],
+  ]),
+  q(39, 10, 'kafka-rebalance-scaling', 'El lag aumenta solo en una partición, mientras las demás se mantienen al día. ¿Qué revisarías antes de sumar consumers?', 1, [
+    ['El TTL de la retención global como única causa', 'La retención define cuánto tiempo hay datos, no por qué el procesamiento se concentra en una partición.'],
+    ['La distribución de keys y la tasa de llegada/proceso de esa partición', 'Una key frecuente puede concentrar trabajo y limitar el avance aunque haya consumers libres.'],
+    ['Cambiar a un group id distinto en cada instancia', 'Grupos independientes volverían a leer los datos y no equilibrarían la carga del grupo actual.'],
+    ['Reducir el replication factor para que la partición procese más rápido', 'Las réplicas apoyan durabilidad y disponibilidad; no son consumers de aplicación.'],
   ]),
 ];

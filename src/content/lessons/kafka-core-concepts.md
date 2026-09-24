@@ -1,15 +1,15 @@
 ## Concepto
 
-Un cluster reúne brokers; cada broker almacena particiones. La partición es la unidad de orden y paralelismo. Un offset identifica una posición dentro de esa partición; no es una identidad global ni una cantidad de filas de negocio.
+Un cluster reúne brokers; cada broker almacena réplicas de particiones. Un topic agrupa particiones; cada partición es un log ordenado al que se anexan records. Un record puede tener key, value, timestamp y headers. Su offset identifica una posición dentro de una partición, no un ID global ni una fila de negocio.
 
-Las ventas de customer-42 con la misma key terminan en la misma partición: se conserva el orden de sus cambios, pero no un orden global entre todos los clientes.
+Los cambios de `pedido-42` publicados con la misma key suelen ir a la misma partición cuando se mantienen el particionador y el número de particiones. Kafka preserva allí su orden relativo; no ofrece un orden global entre pedidos.
 
 El recorrido de esta práctica:
 
 1. Producer elige topic y opcionalmente key.
 2. El particionador decide una partición.
 3. El broker anexa el record y asigna offset.
-4. El consumer lee y confirma su progreso por partición.
+4. El consumer lee records de la partición. La asignación a grupos y el progreso confirmado se estudian en la lección de consumer groups y offsets.
 
 ## Ejemplo
 
@@ -19,8 +19,8 @@ Ejemplo conceptual: el mismo número de offset puede existir en particiones dist
 Topic: pedidos
 Partición 0: offset 12 → key=pedido-42
 Partición 1: offset 12 → key=pedido-73
-Grupo inventario: progreso independiente por partición
-Grupo auditoría: otro progreso sobre el mismo topic
+Los offsets pertenecen a particiones, no son IDs globales
+Cada consumer group conserva su propio progreso
 ```
 
 ## En entrevista
@@ -29,37 +29,36 @@ Grupo auditoría: otro progreso sobre el mismo topic
 
 **Breve:** El orden se garantiza por partición. Una key estable ayuda a enrutar una entidad bajo configuración de particionamiento estable.
 
-**Ampliada:** Orden significa orden dentro de una partición. Con particionador y cantidad de particiones estables, una key consistente conserva afinidad. Cambiar el número de particiones puede cambiar el destino de la misma key; no prometería orden histórico global tras ese cambio.
+**Ampliada:** El broker agrega cada record a una partición y le asigna un offset local a ese log. Una key ayuda al particionador a mantener afinidad y orden por entidad si la estrategia y la cantidad de particiones no cambian. Otro pedido puede estar simultáneamente en otra partición; no existe un offset común que establezca el orden global.
 
 ## Error frecuente
 
-Una key estable no garantiza siempre la misma partición si cambiás particionador, número de particiones o asignás partición explícitamente. Más consumidores tampoco aceleran un grupo sin particiones disponibles.
+No interpretes una key como garantía incondicional de partición: el resultado depende del particionador, cantidad de particiones y asignación explícita. Tampoco uses el offset como ID universal ni lo confundas con una posición confirmada por el grupo.
 
 ## Práctica
 
-Un topic tiene tres particiones y cinco consumidores de un mismo grupo. ¿Cuántos pueden tener particiones asignadas? ¿Offset 12 identifica un evento global?
+Dos eventos del mismo pedido tienen la misma key y se publican en un topic de tres particiones. ¿Qué propiedad se espera mientras el particionamiento se mantenga estable? ¿Offset 12 identifica un evento global?
 
 ### Pista
 
-La asignación clásica reparte particiones, no mensajes individuales sueltos.
+El orden se define dentro de una partición; cada partición tiene su espacio de offsets.
 
 ### Solución
 
-Como máximo tres miembros de ese grupo tienen asignación. Offset 12 solo identifica posición junto a topic y partición. Otro grupo puede leer esas mismas particiones por su cuenta. Incluso con asignación exclusiva, un fallo y reproceso pueden repetir efectos: el negocio debe tolerarlo.
+La key estable tiende a dirigir los eventos de ese pedido a la misma partición, por lo que se conserva el orden relativo allí mientras no cambie el particionador o la cantidad de particiones. Offset 12 solo identifica una posición junto a topic y partición. Los grupos y consumidores asignados se explican en la lección siguiente; un fallo todavía puede provocar reproceso.
 
 ## Profundización
 
-Los offsets no son contadores de filas que deban ser consecutivos: compactación y registros de control pueden crear huecos en lo visible. Lag suele medirse comparando el final del log y el offset confirmado; eso no prueba que todos los efectos externos se hayan aplicado correctamente.
+Los offsets no son contadores de filas que deban aparecer consecutivos: compactación y registros de control pueden dejar huecos en los records visibles. Una key nula es válida, pero no ofrece afinidad de negocio. Para preservar orden por entidad, elegí una key estable antes de publicar.
 
-**Código y guías locales.** Las rutas se resuelven desde la carpeta repaso-roadmap. Se consultan en tu equipo; no son endpoints de esta plataforma ni servicios desplegados en Vercel.
+Una partición aumenta las opciones de paralelismo, pero también crea un límite de orden: Kafka no promete un orden total entre particiones. Más adelante vas a comparar ese paralelismo con el número de miembros de un grupo y con la disponibilidad de réplicas. Esas son decisiones distintas; sumar particiones no aumenta por sí solo las copias de cada una.
 
-- **Topics:** `springboot-kafka-roadmap-course/learning-api/src/main/java/com/interviewlab/learning/config/KafkaTopics.java`. Cada NewTopic declara un log lógico con tres particiones.
-- **Evento con key:** `springboot-kafka-roadmap-course/learning-api/src/main/java/com/interviewlab/learning/model/KeyedEvent.java`. La key de negocio hace que eventos relacionados viajen a la misma partición.
-- **Broker/ZooKeeper:** `springboot-kafka-roadmap-course/docker/kafka-zookeeper/server.properties`. Muestra el broker único, sus listeners y su conexión histórica a ZooKeeper.
+Continuá con [consumer groups y offsets](/leccion/kafka-groups-offsets) para ver cómo lectores independientes avanzan sobre esas particiones.
+
+**Fuente oficial:** [Apache Kafka 3.9: diseño y particiones](https://kafka.apache.org/39/design/design/).
 
 **Comprobá lo aprendido:**
 
 - Sé definir cluster y broker.
 - Sé explicar dónde vive el orden.
 - Sé explicar para qué sirve una key.
-

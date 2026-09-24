@@ -15,8 +15,9 @@ Para SQS, una función lenta puede superar visibility timeout y recibir el mismo
 
 ## En entrevista
 
-**Breve:** Elegí la integración por el contrato de respuesta y el patrón de entrega. **Ampliada:** explica cómo acotarías concurrencia y reintentos para proteger una dependencia saturada.
+**Pregunta:** ¿Cómo cambian los reintentos y el manejo de errores entre API Gateway y SQS al invocar Lambda?
 
+**Breve:** Elegí la integración por el contrato de respuesta y el patrón de entrega. **Ampliada:** explica cómo acotarías concurrencia y reintentos para proteger una dependencia saturada.
 ## Error frecuente
 
 Aumentar el timeout o los reintentos sin revisar duración total, visibilidad y duplicados. Los límites deben coordinarse entre Lambda, SQS y el servicio downstream.

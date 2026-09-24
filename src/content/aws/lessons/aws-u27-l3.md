@@ -16,8 +16,9 @@ El presupuesto y la etiqueta responden a preguntas distintas: el primero alerta 
 
 ## En entrevista
 
-**Breve:** Las etiquetas ayudan a atribuir gasto y Budgets avisa sobre umbrales; ninguna de las dos funciones bloquea automáticamente el consumo. **Ampliada:** explica cómo detectarías gasto de un entorno y qué acción operativa sigue a una alerta.
+**Pregunta:** ¿Cómo ayudan las etiquetas a atribuir y controlar costos de AWS?
 
+**Breve:** Las etiquetas ayudan a atribuir gasto y Budgets avisa sobre umbrales; ninguna de las dos funciones bloquea automáticamente el consumo. **Ampliada:** explica cómo detectarías gasto de un entorno y qué acción operativa sigue a una alerta.
 ## Error frecuente
 
 Asumir que una alerta es un tope o que etiquetar todos los recursos representa cada cargo de la factura. Revisa el detalle de costos, cargos compartidos y recursos sin etiqueta; define quién recibe la alerta y qué hace.

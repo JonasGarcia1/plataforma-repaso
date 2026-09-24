@@ -15,8 +15,9 @@ Si publicar en SQS funciona y la escritura de DynamoDB falla, el mensaje puede r
 
 ## En entrevista
 
-**Breve:** Explica qué garantiza cada componente y qué sigue siendo responsabilidad de la aplicación. **Ampliada:** recorre una falla parcial y muestra cómo evitar duplicados y detectar mensajes atascados.
+**Pregunta:** ¿Cómo coordinarías un flujo de pedidos asíncrono con SQS, Lambda y DynamoDB?
 
+**Breve:** Explica qué garantiza cada componente y qué sigue siendo responsabilidad de la aplicación. **Ampliada:** recorre una falla parcial y muestra cómo evitar duplicados y detectar mensajes atascados.
 ## Error frecuente
 
 Suponer que recibir una respuesta HTTP exitosa significa que el pedido terminó de persistirse. Define si la respuesta significa “aceptado” o “completado” y haz visible ese contrato al cliente.

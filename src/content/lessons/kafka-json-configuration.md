@@ -51,6 +51,8 @@ No. La configuración restringe tipos que el deserializador puede materializar; 
 
 ## Profundización
 
+El serializer define el formato en bytes; [contratos de eventos que evolucionan](/leccion/u25-a) explica por qué un JSON válido todavía puede romper a un consumidor anterior.
+
 El curso usa userListenerFactory para UserEvent y keyedListenerFactory para KeyedEvent. No cambies trusted packages a un comodín solo para silenciar un error. Primero verificá tipo esperado, headers y origen del productor.
 
 **Código y guías locales.** Las rutas se resuelven desde la carpeta repaso-roadmap. Se consultan en tu equipo; no son endpoints de esta plataforma ni servicios desplegados en Vercel.
@@ -63,4 +65,3 @@ El curso usa userListenerFactory para UserEvent y keyedListenerFactory para Keye
 - Sé ubicar JsonSerializer.
 - Sé explicar trusted packages.
 - Sé comparar String con JSON.
-

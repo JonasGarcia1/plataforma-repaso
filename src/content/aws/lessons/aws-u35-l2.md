@@ -14,8 +14,9 @@ El execution role permite a ECS descargar la imagen y publicar logs; el task rol
 
 ## En entrevista
 
-**Breve:** Diferenciá definición, ejecución y servicio ECS; explica qué simplifica Fargate. **Ampliada:** describe cómo diagnosticarías una task que arranca pero no pasa el health check.
+**Pregunta:** ¿Qué diferencia hay entre una task definition, una task y un service en ECS?
 
+**Breve:** Diferenciá definición, ejecución y servicio ECS; explica qué simplifica Fargate. **Ampliada:** describe cómo diagnosticarías una task que arranca pero no pasa el health check.
 ## Error frecuente
 
 Dar permisos de aplicación al execution role o asumir que “administrado” significa sin configuración. Mantén roles separados y usa health checks que reflejen disponibilidad real.

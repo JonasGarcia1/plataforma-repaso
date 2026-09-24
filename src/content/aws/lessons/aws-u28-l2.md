@@ -18,8 +18,9 @@ Cada regla usa como origen el security group del componente anterior cuando corr
 
 ## En entrevista
 
-**Breve:** Los security groups filtran interfaces y son stateful; las NACL filtran subredes y son stateless. DNS resuelve nombres, mientras los controles de red autorizan conexiones. **Ampliada:** dibuja las reglas mínimas desde el cliente hasta la base y explica dónde configurarías el nombre DNS.
+**Pregunta:** ¿Qué significa que un security group sea stateful?
 
+**Breve:** Los security groups filtran interfaces y son stateful; las NACL filtran subredes y son stateless. DNS resuelve nombres, mientras los controles de red autorizan conexiones. **Ampliada:** dibuja las reglas mínimas desde el cliente hasta la base y explica dónde configurarías el nombre DNS.
 ## Error frecuente
 
 Abrir la base a `0.0.0.0/0` o creer que un nombre DNS vuelve privado un recurso público. Una dirección difícil de adivinar no es control de acceso. Limita la regla al origen esperado y valida también las rutas.

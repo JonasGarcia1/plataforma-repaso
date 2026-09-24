@@ -24,8 +24,11 @@ Floci aparece en estado activo y la CLI lista el bucket de práctica. La salida 
 
 ## En entrevista
 
-**Breve:** ¿Cómo evitás que un test local escriba por accidente en AWS? **Ampliada:** separá perfil, endpoint, credenciales y configuración de la aplicación; explicá cómo comprobarías el destino antes de ejecutar una operación destructiva.
+**Pregunta:** ¿Cómo dirigirías AWS CLI y SDK al emulador Floci usando un perfil local?
 
+**Breve:** Configuraría credenciales de prueba en un perfil dedicado y apuntaría CLI y SDK al endpoint local de Floci.
+
+**Ampliada:** Por ejemplo, usaría `--profile floci --endpoint-url http://localhost:4566` en AWS CLI y configuraría el endpoint del cliente SDK para el mismo servicio. Antes de operar, comprobaría que el contenedor responde y que la solicitud incluye ese endpoint; las claves locales de prueba no autentican contra AWS real.
 ## Error frecuente
 
 Confiar en que `AWS_PROFILE=floci` por sí solo redirige una llamada al emulador. El perfil selecciona credenciales y región; el endpoint local también debe quedar explícito en la CLI o en la configuración SDK.

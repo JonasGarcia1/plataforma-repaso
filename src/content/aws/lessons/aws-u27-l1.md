@@ -20,8 +20,9 @@ Esta declaración permite leer objetos cuyas claves estén dentro del bucket `ca
 
 ## En entrevista
 
-**Breve:** IAM combina identidades y políticas para autorizar acciones sobre recursos; un rol entrega acceso temporal y una política limita ese acceso. **Ampliada:** describe principal, acción y recurso de un permiso y cómo verificarías tanto el acceso esperado como el denegado.
+**Pregunta:** ¿Cómo aplicarías mínimo privilegio con políticas IAM para una aplicación?
 
+**Breve:** IAM combina identidades y políticas para autorizar acciones sobre recursos; un rol entrega acceso temporal y una política limita ese acceso. **Ampliada:** describe principal, acción y recurso de un permiso y cómo verificarías tanto el acceso esperado como el denegado.
 ## Error frecuente
 
 Usar `Action: "*"` y `Resource: "*"` para resolver un error de permisos. Primero identifica la llamada que falla y agrega solo la acción y el recurso requeridos. Para un objeto y para listar un bucket se necesitan acciones y alcances distintos.

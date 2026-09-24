@@ -1,7 +1,7 @@
 import type { Lesson } from '../types';
 
-// Mantiene el orden de las 22 lecciones del curso original.
-// Unidades 17–20: 4 fundamentos, 9 texto/JSON, 5 producer Wikimedia, 4 persistencia.
+// Unidades 17–20 conservan el recorrido práctico original; U17 incorpora un fundamento
+// de consumer groups y U39 reúne fundamentos operativos avanzados de Kafka.
 export const kafkaLessons: Lesson[] = [
   {
     "id": "kafka-overview",
@@ -21,11 +21,7 @@ export const kafkaLessons: Lesson[] = [
       "Ubicá producer, broker, topic, consumer y base de datos antes de escribir configuración.",
       "Resolver la práctica y explicar qué evidencia confirma el resultado."
     ],
-    "prerequisites": [
-      "HTTP y APIs",
-      "Spring Boot",
-      "Fundamentos de eventos"
-    ],
+    "prerequisites": [],
     "resources": [
       {
         "title": "Apache Kafka: documentación",
@@ -51,9 +47,7 @@ export const kafkaLessons: Lesson[] = [
       "Diferenciá topic, partición y offset; son los tres niveles que aparecen una y otra vez en logs, Kafka UI y entrevistas.",
       "Resolver la práctica y explicar qué evidencia confirma el resultado."
     ],
-    "prerequisites": [
-      "Apache Kafka: overview"
-    ],
+    "prerequisites": ["kafka-overview"],
     "resources": [
       {
         "title": "Apache Kafka: documentación",
@@ -63,7 +57,7 @@ export const kafkaLessons: Lesson[] = [
   },
   {
     "id": "kafka-install-kafka",
-    "unitId": 17,
+    "unitId": 18,
     "title": "Instalar y configurar Apache Kafka",
     "description": "Entendé los puertos del entorno: Kafka interno usa kafka:9092 y las aplicaciones Windows usan localhost:29092.",
     "minutes": 8,
@@ -80,7 +74,7 @@ export const kafkaLessons: Lesson[] = [
       "Resolver la práctica y explicar qué evidencia confirma el resultado."
     ],
     "prerequisites": [
-      "Conceptos centrales y terminología"
+      "kafka-groups-offsets"
     ],
     "resources": [
       {
@@ -95,7 +89,7 @@ export const kafkaLessons: Lesson[] = [
   },
   {
     "id": "kafka-create-spring",
-    "unitId": 17,
+    "unitId": 18,
     "title": "Crear y preparar el proyecto Spring Boot",
     "description": "Identificá el punto de entrada, las dependencias y el rol de auto-configuración.",
     "minutes": 8,
@@ -112,13 +106,32 @@ export const kafkaLessons: Lesson[] = [
       "Resolver la práctica y explicar qué evidencia confirma el resultado."
     ],
     "prerequisites": [
-      "Instalar y configurar Apache Kafka"
+      "kafka-install-kafka"
     ],
     "resources": [
       {
         "title": "Spring Framework 6.2: contenedor IoC",
         "url": "https://docs.spring.io/spring-framework/reference/6.2/core/beans.html"
       }
+    ]
+  },
+  {
+    "id": "kafka-groups-offsets",
+    "unitId": 17,
+    "title": "Consumer groups y offsets",
+    "description": "Entendé cómo un grupo distribuye particiones y conserva su progreso independiente.",
+    "minutes": 9,
+    "tags": ["consumer group", "offsets", "commits", "lag", "replay"],
+    "objectives": [
+      "Distinguir posición de un record y offset confirmado por un grupo.",
+      "Explicar asignación de particiones y progreso independiente por grupo.",
+      "Predecir qué puede releer un consumer al reiniciarse."
+    ],
+    "prerequisites": ["kafka-core-concepts"],
+    "resources": [
+      { "title": "Apache Kafka 3.9: Consumer groups", "url": "https://kafka.apache.org/39/design/design/" },
+      { "title": "Apache Kafka 3.9: Consumer configs", "url": "https://kafka.apache.org/39/configuration/consumer-configs/" },
+      { "title": "Spring Kafka 3.3: Listener containers", "url": "https://docs.spring.io/spring-kafka/reference/3.3/kafka/receiving-messages/message-listener-container.html" }
     ]
   },
   {
@@ -645,6 +658,80 @@ export const kafkaLessons: Lesson[] = [
         "url": "https://docs.spring.io/spring-data/jpa/reference/3.5/"
       }
     ]
+  },
+  {
+    "id": "kafka-replication-acks",
+    "unitId": 39,
+    "title": "Réplicas, ISR y acknowledgments",
+    "description": "Relacioná factor de réplica, réplicas sincronizadas y acks con durabilidad y disponibilidad.",
+    "minutes": 10,
+    "tags": ["replication factor", "leader", "ISR", "acks", "min.insync.replicas"],
+    "objectives": [
+      "Describir leader, followers e ISR para una partición.",
+      "Comparar acks=0, acks=1 y acks=all sin prometer durabilidad absoluta.",
+      "Explicar el intercambio entre disponibilidad de escritura y mínimo de réplicas sincronizadas."
+    ],
+    "prerequisites": ["kafka-core-concepts"],
+    "resources": [
+      { "title": "Apache Kafka 3.9: Design and replication", "url": "https://kafka.apache.org/39/design/design/" },
+      { "title": "Apache Kafka 3.9: Producer configs", "url": "https://kafka.apache.org/39/configuration/producer-configs/" },
+      { "title": "Apache Kafka 3.9: Topic configs", "url": "https://kafka.apache.org/39/configuration/topic-level-configs/" }
+    ]
+  },
+  {
+    "id": "kafka-retention-compaction",
+    "unitId": 39,
+    "title": "Retención por tiempo y compactación",
+    "description": "Elegí entre conservar historia por una ventana y conservar el último estado conocido por key.",
+    "minutes": 10,
+    "tags": ["retention.ms", "retention.bytes", "cleanup.policy", "compaction", "tombstone"],
+    "objectives": [
+      "Distinguir retención delete de limpieza compactada por key.",
+      "Explicar la limpieza asíncrona, los tombstones y los huecos entre offsets.",
+      "Elegir una política según se necesite historia de eventos o estado reconstruible."
+    ],
+    "prerequisites": ["kafka-core-concepts"],
+    "resources": [
+      { "title": "Apache Kafka 3.9: Topic configs", "url": "https://kafka.apache.org/39/configuration/topic-level-configs/" },
+      { "title": "Apache Kafka 3.9: Log compaction", "url": "https://kafka.apache.org/39/design/design/" }
+    ]
+  },
+  {
+    "id": "kafka-delivery-semantics",
+    "unitId": 39,
+    "title": "Entrega, commits e idempotencia",
+    "description": "Ubicá las ventanas de fallo entre publicar, procesar, persistir el efecto y confirmar el offset.",
+    "minutes": 11,
+    "tags": ["at-most-once", "at-least-once", "exactly-once", "commit", "idempotencia"],
+    "objectives": [
+      "Comparar at-most-once, at-least-once y exactly-once por alcance.",
+      "Reconocer cuándo una caída puede causar pérdida o reproceso.",
+      "Elegir una estrategia durable de idempotencia para efectos en una base externa."
+    ],
+    "prerequisites": ["kafka-groups-offsets", "kafka-replication-acks"],
+    "resources": [
+      { "title": "Apache Kafka 3.9: Message delivery semantics", "url": "https://kafka.apache.org/39/design/design/" },
+      { "title": "Apache Kafka 3.9: Producer configs", "url": "https://kafka.apache.org/39/configuration/producer-configs/" },
+      { "title": "Spring Kafka 3.3: Exactly once semantics", "url": "https://docs.spring.io/spring-kafka/reference/3.3/kafka/exactly-once.html" }
+    ]
+  },
+  {
+    "id": "kafka-rebalance-scaling",
+    "unitId": 39,
+    "title": "Rebalances y escalado de consumers",
+    "description": "Predecí cómo una modificación del grupo distribuye particiones y afecta el paralelismo.",
+    "minutes": 10,
+    "tags": ["rebalance", "assignment", "consumer group", "concurrency", "lag"],
+    "objectives": [
+      "Explicar por qué se reasignan particiones cuando cambia un grupo.",
+      "Relacionar cantidad de particiones con consumidores activos y paralelismo.",
+      "Identificar rebalances frecuentes, particiones calientes y límites de escalado."
+    ],
+    "prerequisites": ["kafka-groups-offsets", "kafka-delivery-semantics"],
+    "resources": [
+      { "title": "Apache Kafka 3.9: Consumer groups", "url": "https://kafka.apache.org/39/design/design/" },
+      { "title": "Apache Kafka 3.9: Consumer configs", "url": "https://kafka.apache.org/39/configuration/consumer-configs/" },
+      { "title": "Spring Kafka 3.3: Listener concurrency", "url": "https://docs.spring.io/spring-kafka/reference/3.3/kafka/receiving-messages/message-listener-container.html" }
+    ]
   }
 ];
-

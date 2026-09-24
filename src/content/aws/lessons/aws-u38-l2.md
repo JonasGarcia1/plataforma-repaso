@@ -32,8 +32,11 @@ La solicitud devuelve el pedido aceptado y la lista de objetos de S3 contiene `p
 
 ## En entrevista
 
-**Breve:** ¿Qué comunica un `202` en este endpoint? **Ampliada:** explicá qué debe ver el cliente si se guarda el objeto, pero falla el envío a la cola.
+**Pregunta:** ¿Qué significa que `POST /orders` responda 202 antes de completar el procesamiento?
 
+**Breve:** `202 Accepted` indica que la API aceptó el pedido para procesarlo después; no confirma que Lambda ya lo haya persistido.
+
+**Ampliada:** La API valida el pedido, serializa el evento, lo guarda en S3 y lo publica en SQS antes de responder. Si S3 se actualiza pero falla el envío, las dos escrituras no forman una transacción atómica: el servicio debe registrar el fallo y disponer de reconciliación o un patrón outbox si no puede perder esa diferencia.
 ## Error frecuente
 
 Tratar una escritura en S3 seguida de un envío SQS como si fuera una transacción atómica. Si falla el segundo paso, puede quedar un objeto sin mensaje. En un sistema con ese riesgo de negocio, se diseña una estrategia de reconciliación o un patrón outbox apropiado y se hace visible el estado parcial.

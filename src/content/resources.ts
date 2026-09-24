@@ -81,6 +81,13 @@ export const glossary = [
  ['SASL','Mecanismo de autenticación de clientes Kafka; se complementa con TLS y ACLs.','Kafka'],
  ['ACL','Regla de autorización que permite o deniega acciones de un principal sobre un recurso.','Seguridad'],
  ['Kafka Streams','Biblioteca para transformar, agrupar y unir streams Kafka con estado y ventanas de tiempo.','Kafka'],
+ ['min.insync.replicas','Mínimo de réplicas sincronizadas que deben estar disponibles para aceptar escrituras configuradas con acks=all.','Kafka'],
+ ['Idempotent producer','Producer que usa identificadores y secuencias para evitar duplicados causados por ciertos reintentos de publicación.','Kafka'],
+ ['At-most-once','Semántica que evita procesar un registro más de una vez, con posibilidad de perderlo si se confirma antes del efecto.','Kafka'],
+ ['At-least-once','Semántica que prioriza no perder registros, pero puede repetir un efecto después de un fallo.','Kafka'],
+ ['Exactly-once','Garantía cuyo alcance debe definirse; las transacciones Kafka no incluyen automáticamente efectos en bases externas.','Kafka'],
+ ['Transacción Kafka','Operación que confirma o aborta un conjunto de escrituras Kafka y puede coordinar offsets en un flujo compatible.','Kafka'],
+ ['Hot partition','Partición que recibe o procesa una carga desproporcionada, a menudo por concentración de una key frecuente.','Kafka'],
 ] as const;
 
 export const cheatSheets = [

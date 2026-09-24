@@ -50,6 +50,8 @@ El registro puede procesarse otra vez y crear otra fila con nuevo ID generado. E
 
 ## Profundización
 
+Relacioná este listener con [garantías de entrega](/leccion/kafka-delivery-semantics) y [reintentos, DLQ y reproceso](/leccion/u25-b). Así podés distinguir el reintento del mensaje de la deduplicación del efecto en MySQL.
+
 Referencia avanzada: springboot-kafka-roadmap-course/advanced-labs/src/main/java/com/interviewlab/advanced/labs/AdvancedLabService.java. executeInTransaction agrupa escrituras Kafka; no vuelve atómicas la tabla MySQL y la confirmación de este listener. Separá transacciones Kafka, idempotencia del producer e idempotencia de negocio.
 
 **Código y guías locales.** Las rutas se resuelven desde la carpeta repaso-roadmap. Se consultan en tu equipo; no son endpoints de esta plataforma ni servicios desplegados en Vercel.
@@ -62,4 +64,3 @@ Referencia avanzada: springboot-kafka-roadmap-course/advanced-labs/src/main/java
 - Sé definir ConsumerRecord.
 - Sé explicar at-least-once.
 - Sé encontrar key/offset en logs.
-

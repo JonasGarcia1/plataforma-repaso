@@ -19,8 +19,9 @@ El contenido cacheable, como imágenes con claves versionadas, se beneficia de C
 
 ## En entrevista
 
-**Breve:** CloudFront acelera entrega con una caché configurable; Route 53 resuelve nombres; SES gestiona correo. **Ampliada:** asigna cada servicio a una parte del flujo y nombra una configuración necesaria antes de entregar contenido o enviar correo.
+**Pregunta:** ¿Cómo decide CloudFront si puede responder desde su caché?
 
+**Breve:** CloudFront acelera entrega con una caché configurable; Route 53 resuelve nombres; SES gestiona correo. **Ampliada:** asigna cada servicio a una parte del flujo y nombra una configuración necesaria antes de entregar contenido o enviar correo.
 ## Error frecuente
 
 Asumir que CloudFront cachea todo de forma segura o que SES puede enviar desde cualquier dominio recién creado. Define TTL y claves de caché según el contenido; verifica el dominio, SPF/DKIM y límites de envío de SES.

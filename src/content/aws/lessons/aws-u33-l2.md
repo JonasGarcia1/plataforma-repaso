@@ -16,8 +16,9 @@ Para DynamoDB, una consulta por `partitionKey` y rango de `sortKey` aprovecha la
 
 ## En entrevista
 
-**Breve:** Diferenciá el almacenamiento de objetos de S3 del acceso por claves y patrones de DynamoDB. **Ampliada:** explica cómo evitarías sobrescrituras accidentales, scans innecesarios y filtraciones en logs.
+**Pregunta:** ¿Cómo diseñarías llamadas del SDK Java para S3 y DynamoDB con clientes tipados?
 
+**Breve:** Diferenciá el almacenamiento de objetos de S3 del acceso por claves y patrones de DynamoDB. **Ampliada:** explica cómo evitarías sobrescrituras accidentales, scans innecesarios y filtraciones en logs.
 ## Error frecuente
 
 Diseñar DynamoDB como una base relacional y esperar joins, o asumir que el nombre de una key S3 representa una carpeta real. El modelo y la consulta deben seguir el contrato de acceso.

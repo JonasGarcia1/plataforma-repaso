@@ -18,8 +18,9 @@ Un balanceador público puede ubicarse en subredes públicas y enviar tráfico a
 
 ## En entrevista
 
-**Breve:** La VPC define la red, las subredes separan rangos y AZ, y las tablas de rutas determinan por dónde sale el tráfico. **Ampliada:** recorre el camino del cliente al balanceador, a la API y a la base; justifica qué componentes requieren ruta pública.
+**Pregunta:** ¿Qué relación tienen una VPC, sus rangos CIDR y las subredes?
 
+**Breve:** La VPC define la red, las subredes separan rangos y AZ, y las tablas de rutas determinan por dónde sale el tráfico. **Ampliada:** recorre el camino del cliente al balanceador, a la API y a la base; justifica qué componentes requieren ruta pública.
 ## Error frecuente
 
 Llamar privada a una subred solo porque así se llama. Revisa su tabla de rutas, el IGW/NAT asociado y las direcciones de las instancias. No agregues una ruta `0.0.0.0/0` a un IGW a una subred de base de datos para resolver una dependencia sin evaluar su exposición.

@@ -16,8 +16,9 @@ La selección de región también afecta latencia, residencia de datos, servicio
 
 ## En entrevista
 
-**Breve:** La región es un área geográfica y las AZ son ubicaciones aisladas dentro de ella. Multi-AZ ayuda ante fallos de zona si todos los componentes críticos tienen una estrategia compatible. **Ampliada:** señala un componente que debe sobrevivir junto a las instancias y explica cómo probarías el failover.
+**Pregunta:** ¿Cómo ayudan las regiones y zonas de disponibilidad a diseñar disponibilidad?
 
+**Breve:** La región es un área geográfica y las AZ son ubicaciones aisladas dentro de ella. Multi-AZ ayuda ante fallos de zona si todos los componentes críticos tienen una estrategia compatible. **Ampliada:** señala un componente que debe sobrevivir junto a las instancias y explica cómo probarías el failover.
 ## Error frecuente
 
 Confundir varias subredes con alta disponibilidad. Dos subredes en la misma AZ no distribuyen la carga entre zonas; verificá la AZ de cada subred y dónde se ejecutan los componentes.

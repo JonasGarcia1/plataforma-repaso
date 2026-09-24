@@ -18,8 +18,9 @@ El visibility timeout debe permitir terminar el procesamiento normal. Si es dema
 
 ## En entrevista
 
-**Breve:** Reintenta fallos transitorios con un límite; manda mensajes que agotan intentos a una DLQ para investigación. La idempotencia evita repetir efectos. **Ampliada:** describe el recorrido del mensaje, el umbral de intentos y cómo se reanuda sin duplicar una reserva.
+**Pregunta:** ¿Cómo evitarías amplificar una falla al reintentar una operación AWS?
 
+**Breve:** Reintenta fallos transitorios con un límite; manda mensajes que agotan intentos a una DLQ para investigación. La idempotencia evita repetir efectos. **Ampliada:** describe el recorrido del mensaje, el umbral de intentos y cómo se reanuda sin duplicar una reserva.
 ## Error frecuente
 
 Usar reintentos infinitos o asumir que un mensaje en DLQ ya se resolvió. El bucle puede aumentar latencia y costo; sin alerta y proceso de redrive, el trabajo queda detenido.

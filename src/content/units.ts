@@ -4,7 +4,7 @@ export const stages: StageDefinition[] = [
  {id:'java-aplicado',name:'Java aplicado',description:'Convertí conceptos en código con criterio.',topics:'Streams · Concurrencia · SOLID',color:'cyan'},
  {id:'backend-profesional',name:'Backend profesional',description:'Llevá tus ideas a APIs y datos reales.',topics:'Spring · SQL · JPA · Testing',color:'teal'},
  {id:'profundizacion-senior',name:'Profundización senior',description:'Aprendé a decidir, medir y anticipar fallos.',topics:'DDD · EDA · Seguridad · Rendimiento',color:'indigo'},
- {id:'spring-boot-kafka',name:'Spring Boot + Kafka',description:'Construí y observá un flujo de eventos completo.',topics:'Topics · Producers · Consumers · Persistencia',color:'brand'},
+ {id:'spring-boot-kafka',name:'Spring Boot + Kafka',description:'Entendé Kafka y después construí un flujo de eventos completo.',topics:'Fundamentos · Garantías · Spring Kafka · Persistencia',color:'brand'},
 ];
 export const levels: Level[] = stages.map(stage=>stage.name);
 const unitDefinitions: Unit[] = [
@@ -28,11 +28,12 @@ const unitDefinitions: Unit[] = [
  {id:15,order:18,title:'Eventos y sistemas distribuidos',description:'Conectá servicios y razoná sobre mensajes y fallos.',level:levels[3],icon:'network'},
  {id:16,order:19,title:'Seguridad y operación',description:'Protegé, medí y operá un backend con criterio.',level:levels[3],icon:'shield'},
  {id:24,order:20,title:'Decisiones y resiliencia',description:'Elegí límites, protegé dependencias y medí compromisos.',level:levels[3],icon:'shield'},
- {id:17,order:21,title:'Kafka: fundamentos y entorno',description:'Entendé el log distribuido y prepará un entorno reproducible.',level:levels[4],icon:'network'},
- {id:18,order:22,title:'Mensajería con Spring Boot',description:'Publicá y consumí texto y JSON con contratos claros.',level:levels[4],icon:'workflow'},
- {id:19,order:23,title:'Caso real: productor Wikimedia',description:'Conectá un stream externo con un producer desacoplado.',level:levels[4],icon:'globe'},
- {id:20,order:24,title:'Consumer, persistencia y operación',description:'Persistí eventos y razoná sobre entregas, fallos y reprocesos.',level:levels[4],icon:'database'},
- {id:25,order:25,title:'Contratos y operación de eventos',description:'Evolucioná contratos Kafka y operá el flujo de punta a punta.',level:levels[4],icon:'network'},
+ {id:17,order:21,title:'Fundamentos de Kafka',description:'Entendé los registros, topics, particiones, grupos y offsets antes de configurar herramientas.',level:levels[4],icon:'network'},
+ {id:39,order:22,title:'Funcionamiento y garantías de Kafka',description:'Razoná sobre réplicas, durabilidad, conservación, entregas y rebalanceos.',level:levels[4],icon:'network'},
+ {id:25,order:23,title:'Contratos y operación de eventos',description:'Evolucioná esquemas y comprendé fallos, seguridad y capacidad.',level:levels[4],icon:'network'},
+ {id:18,order:24,title:'Mensajería con Spring Boot',description:'Prepará el entorno y publicá y consumí texto y JSON con Spring Kafka.',level:levels[4],icon:'workflow'},
+ {id:19,order:25,title:'Caso real: productor Wikimedia',description:'Conectá un stream externo con un producer desacoplado.',level:levels[4],icon:'globe'},
+ {id:20,order:26,title:'Consumer, persistencia y operación',description:'Persistí eventos y razoná sobre entregas, fallos y reprocesos.',level:levels[4],icon:'database'},
 ];
 export const units = [...unitDefinitions].sort((left,right)=>left.order-right.order);
 export const unitById = new Map(units.map(unit=>[unit.id,unit]));

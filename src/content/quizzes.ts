@@ -217,12 +217,36 @@ const baseQuizzes: QuizQuestion[] = [
     ['Se copian automáticamente a MySQL', 'Persistir en otra base requiere un consumidor, conector o aplicación configurada para hacerlo.'],
     ['Se convierten en una única partición ordenada', 'Consumir no cambia el número de particiones ni crea un orden global.'],
   ], 'kafka-core-concepts'),
-  quiz('kafka-broker-unico', 17, '¿Qué límite tiene probar con un único broker en Docker Compose?', 2, [
+  quiz('kafka-broker-unico', 18, '¿Qué límite tiene probar con un único broker en Docker Compose?', 2, [
     ['No permite publicar eventos JSON', 'El broker almacena bytes; el formato se decide en productores y consumidores.'],
     ['Garantiza continuidad aunque ese mismo broker se caiga', 'Sin otro broker no hay una réplica independiente que asuma su trabajo.'],
     ['No permite demostrar failover entre brokers y réplicas independientes', 'Sirve para el flujo funcional, pero la disponibilidad distribuida requiere una topología distinta.'],
     ['Obliga a usar un único topic', 'Un broker puede alojar varios topics y particiones dentro de su capacidad.'],
   ], 'kafka-install-kafka'),
+  quiz('kafka-concept-record', 17, 'Un producer publica key=pedido-42 y value=PedidoActualizado. ¿Qué representa el record?', 1, [
+    ['Una transacción que actualiza todas las bases de datos', 'Un record es una entrada del log; no coordina escrituras externas.'],
+    ['Una key y un value publicados en un topic', 'El record transporta datos; la key puede ayudar a decidir la partición.'],
+    ['Un consumer group con su offset confirmado', 'El group y su progreso pertenecen al consumo, no al contenido de un record.'],
+    ['Una réplica completa del cluster', 'La replicación copia particiones; no cambia el significado del record.'],
+  ], 'kafka-core-concepts'),
+  quiz('kafka-concept-order', 17, 'Dos eventos del mismo pedido deben conservar orden relativo. ¿Qué diseño favorece esa garantía?', 3, [
+    ['Publicarlos en topics distintos y comparar sus timestamps', 'Kafka no crea un orden total entre topics a partir de timestamps.'],
+    ['Asignar un group id al producer', 'El group id configura consumidores y no el orden de publicación.'],
+    ['Usar una partición aleatoria por evento', 'Al cambiar de partición se pierde el orden relativo entre esos records.'],
+    ['Publicar con una key estable de pedido y conservar su particionamiento', 'Los records de la key se dirigen a la misma partición, donde Kafka mantiene su orden.'],
+  ], 'kafka-core-concepts'),
+  quiz('kafka-concept-groups', 17, 'Dos aplicaciones necesitan leer el mismo topic y avanzar a ritmos distintos. ¿Cómo evitan compartir el progreso?', 0, [
+    ['Usar consumer groups distintos', 'Cada grupo mantiene offsets propios y puede leer los mismos records independientemente.'],
+    ['Usar el mismo group id con más consumers', 'Los miembros de un grupo se reparten particiones y comparten su progreso.'],
+    ['Crear un offset global manual', 'Los offsets se administran por partición y grupo, no como un contador global.'],
+    ['Aumentar la retención del topic', 'Retención conserva datos, pero no separa el progreso de dos aplicaciones.'],
+  ], 'kafka-core-concepts'),
+  quiz('kafka-concept-partition', 17, 'Un topic tiene seis particiones y un consumer group tiene ocho instancias activas. ¿Qué ocurre en el modelo tradicional?', 2, [
+    ['Cada instancia recibe una copia de todas las particiones', 'Dentro del mismo grupo, las particiones se distribuyen para repartir trabajo.'],
+    ['Las dos instancias sobrantes crean particiones nuevas', 'La cantidad de consumers no cambia automáticamente la partición del topic.'],
+    ['Como máximo seis instancias consumen particiones; las restantes quedan sin asignación', 'Una partición se asigna a un consumer del grupo a la vez, por lo que limita el paralelismo.'],
+    ['El grupo se divide automáticamente en dos grupos independientes', 'Kafka conserva la identidad del group; no crea otros grupos para miembros sobrantes.'],
+  ], 'kafka-core-concepts'),
   quiz('kafka-accepted', 18, 'La API responde 202 al aceptar la publicación de un evento. ¿Qué puede inferir el cliente?', 0, [
     ['Que se aceptó una solicitud asíncrona según el contrato', 'Debe consultar el estado o esperar otro mecanismo para saber si los efectos posteriores terminaron.'],
     ['Que MySQL ya confirmó el insert del consumidor', 'La aceptación HTTP no demuestra un efecto ejecutado más tarde por otro proceso.'],
@@ -261,4 +285,3 @@ const baseQuizzes: QuizQuestion[] = [
   ], 'kafka-save-wikimedia'),
 ];
 export const quizzes: QuizQuestion[] = [...baseQuizzes, ...expansionQuizzes, ...foundationExpansionQuizzes, ...backendSeniorExpansionQuizzes, ...kafkaAdvancedExpansionQuizzes];
-

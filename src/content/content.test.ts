@@ -7,9 +7,9 @@ describe('integridad de los módulos publicados',()=>{
  it('conserva el catálogo Java y registra el recorrido AWS',()=>{
   const java=getModule('java');const aws=getModule('aws');
   expect(modules.map(module=>module.id)).toEqual(['java','aws']);
-  expect(java.stages).toHaveLength(5);expect(java.units).toHaveLength(25);expect(java.lessons).toHaveLength(87);expect(java.questions).toHaveLength(195);expect(java.quizzes).toHaveLength(250);
+  expect(java.stages).toHaveLength(5);expect(java.units).toHaveLength(26);expect(java.lessons).toHaveLength(94);expect(java.questions).toHaveLength(201);expect(java.quizzes).toHaveLength(264);
   expect(aws.stages).toHaveLength(5);expect(aws.units).toHaveLength(13);expect(aws.lessons).toHaveLength(41);expect(aws.questions).toHaveLength(84);expect(aws.quizzes).toHaveLength(135);
-  expect(javaStages).toHaveLength(5);expect(javaUnits).toHaveLength(25);expect(javaLessons).toHaveLength(87);expect(javaQuestions).toHaveLength(195);expect(javaQuizzes).toHaveLength(250);
+  expect(javaStages).toHaveLength(5);expect(javaUnits).toHaveLength(26);expect(javaLessons).toHaveLength(94);expect(javaQuestions).toHaveLength(201);expect(javaQuizzes).toHaveLength(264);
   expect(aws.units.map(unit=>unit.id)).toEqual(Array.from({length:13},(_,index)=>index+26));
  });
 
@@ -43,11 +43,37 @@ describe('integridad de los módulos publicados',()=>{
   for(const module of modules)for(const lesson of module.lessons){
    const text=await loadLesson(lesson.id);const headings=splitSections(text).map(section=>section.title);
    for(const title of ['Concepto','Ejemplo','En entrevista','Error frecuente','Práctica','Profundización'])expect(headings,`${lesson.id}: ${title}`).toContain(title);
+   const interview=splitSections(text).find(section=>section.title==='En entrevista')?.body??'';
+   for(const [label,minLength] of [['Pregunta',12],['Breve',25],['Ampliada',50]] as const){
+    const value=interview.match(new RegExp(`\\*\\*${label}:\\*\\*\\s*([\\s\\S]*?)(?=\\n\\s*\\*\\*(?:Pregunta|Breve|Ampliada):\\*\\*|$)`))?.[1]?.trim()??'';
+    expect(value.length,`${lesson.id}: ${label} de entrevista`).toBeGreaterThanOrEqual(minLength);
+   }
    expect(text).toContain('### Pista');expect(text).toContain('### Solución');expect(text.split(/\s+/).length).toBeGreaterThan(230);
    expect((text.match(/^```/gm)||[]).length%2).toBe(0);
    expect(lesson.objectives.length).toBeGreaterThan(0);expect(lesson.resources.length).toBeGreaterThan(0);
    for(const resource of lesson.resources)expect(new URL(resource.url).protocol).toBe('https:');
   }
+ });
+
+ it('incluye preguntas de entrevista específicas y sin duplicados en las 135 lecciones',async()=>{
+  const lessons=modules.flatMap(module=>module.lessons);
+  const prompts:string[]=[];const briefs:string[]=[];const extendedAnswers:string[]=[];
+  for(const lesson of lessons){
+   const text=await loadLesson(lesson.id);
+   const interview=splitSections(text).find(section=>section.title==='En entrevista')?.body??'';
+   const prompt=interview.match(/\*\*Pregunta:\*\*\s*([\s\S]*?)(?=\n\s*\*\*Breve:\*\*|$)/)?.[1]?.trim()??'';
+   const brief=interview.match(/\*\*Breve:\*\*\s*([\s\S]*?)(?=\n\s*\*\*Ampliada:\*\*|$)/)?.[1]?.trim()??'';
+   const extended=interview.match(/\*\*Ampliada:\*\*\s*([\s\S]*)$/)?.[1]?.trim()??'';
+   prompts.push(prompt);
+   briefs.push(brief);extendedAnswers.push(extended);
+   expect(prompt,`${lesson.id}: pregunta específica`).not.toMatch(/^(?:Pregunta|Completar|Responder|Explicar)\.?$/i);
+   expect(interview,`${lesson.id}: campos de entrevista`).toContain('**Breve:**');
+   expect(interview,`${lesson.id}: campos de entrevista`).toContain('**Ampliada:**');
+  }
+  expect(lessons).toHaveLength(135);
+  expect(new Set(prompts).size).toBe(lessons.length);
+  expect(new Set(briefs).size).toBe(lessons.length);
+  expect(new Set(extendedAnswers).size).toBe(lessons.length);
  });
 
  it('enseña explícitamente AWS, S3 y mantiene Floci como práctica opcional',async()=>{
@@ -82,6 +108,26 @@ describe('integridad de los módulos publicados',()=>{
  });
 
  it('mantiene cubierto el curso Kafka existente',()=>{
-  expect(javaLessons.filter(lesson=>lesson.id.startsWith('kafka-'))).toHaveLength(22);
+  expect(javaLessons.filter(lesson=>lesson.id.startsWith('kafka-'))).toHaveLength(27);
+  for(const id of ['kafka-overview','kafka-core-concepts','kafka-install-kafka','kafka-create-spring','kafka-real-world','kafka-save-wikimedia'])
+   expect(javaLessons.some(lesson=>lesson.id===id),id).toBe(true);
+ });
+ it('ordena los conceptos Kafka antes del entorno y conserva los IDs existentes',()=>{
+  const kafkaUnits=javaUnits.filter(unit=>unit.level===javaStages[4].name);
+  expect(kafkaUnits.map(unit=>unit.id)).toEqual([17,39,25,18,19,20]);
+  const lessonUnits=javaLessons.filter(lesson=>kafkaUnits.some(unit=>unit.id===lesson.unitId)).map(lesson=>lesson.unitId);
+  expect([...new Set(lessonUnits)]).toEqual([17,39,25,18,19,20]);
+  expect(javaLessons.find(lesson=>lesson.id==='kafka-install-kafka')?.unitId).toBe(18);
+  expect(javaLessons.find(lesson=>lesson.id==='kafka-create-spring')?.unitId).toBe(18);
+  expect(javaLessons.find(lesson=>lesson.id==='u25-c')?.unitId).toBe(25);
+  expect(javaQuizzes.filter(quiz=>quiz.unitId===17)).toHaveLength(10);
+  expect(javaQuizzes.filter(quiz=>quiz.unitId===39)).toHaveLength(10);
+  for(const lesson of javaLessons.filter(item=>[17,39,25].includes(item.unitId))){
+   const position=javaLessons.findIndex(item=>item.id===lesson.id);
+   for(const prerequisite of lesson.prerequisites){
+    const earlier=javaLessons.findIndex(item=>item.id===prerequisite);
+    if(earlier>=0)expect(earlier,`${lesson.id} requiere una lección posterior`).toBeLessThan(position);
+   }
+  }
  });
 });

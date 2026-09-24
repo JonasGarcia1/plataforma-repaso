@@ -17,8 +17,9 @@ El consumidor borra el mensaje después de procesarlo correctamente. Si agota el
 
 ## En entrevista
 
-**Breve:** Separá el listener, el caso de uso y el acceso a SQS; asumí reentregas. **Ampliada:** explica qué pasa ante fallo después de persistir pero antes de confirmar el mensaje.
+**Pregunta:** ¿Qué debe contemplar un listener SQS de Spring Cloud AWS al procesar mensajes?
 
+**Breve:** Separá el listener, el caso de uso y el acceso a SQS; asumí reentregas. **Ampliada:** explica qué pasa ante fallo después de persistir pero antes de confirmar el mensaje.
 ## Error frecuente
 
 Capturar cualquier excepción y finalizar el listener como si el trabajo hubiera terminado. Eso puede confirmar el mensaje y perder el efecto esperado; clasifica errores recuperables y permanentes.

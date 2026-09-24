@@ -25,8 +25,11 @@ Una invocación correcta crea en DynamoDB una fila con `orderId`, `customerId`, 
 
 ## En entrevista
 
-**Breve:** ¿Por qué la entrega de SQS puede provocar más de una invocación? **Ampliada:** describí la ventana entre guardar el pedido y confirmar el mensaje, y cómo se protege el efecto.
+**Pregunta:** ¿Cómo conecta el mapeo de origen de eventos una cola SQS con una Lambda?
 
+**Breve:** El mapeo sondea SQS, reúne mensajes en lotes e invoca Lambda; el mensaje se elimina cuando el lote se procesa correctamente.
+
+**Ampliada:** Si la función falla o vence el tiempo, el mensaje puede volver a estar visible y provocar otra invocación. Por eso el consumidor debe tolerar duplicados, por ejemplo usando el ID del pedido como clave idempotente antes de guardar en DynamoDB. Ajustaría tamaño del lote, concurrencia y timeout al tiempo de procesamiento.
 ## Error frecuente
 
 Suponer que aumentar el visibility timeout garantiza procesamiento exactamente una vez. El timeout reduce ciertas entregas concurrentes, pero el consumidor sigue necesitando idempotencia ante reintentos y fallos.

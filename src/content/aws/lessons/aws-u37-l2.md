@@ -15,8 +15,9 @@ El endpoint alternativo y las credenciales ficticias deben estar limitados al pe
 
 ## En entrevista
 
-**Breve:** Usa pruebas locales para ciclos rápidos y reserva validaciones en AWS para propiedades que el entorno local no reproduce. **Ampliada:** explica cómo elegir entre mocks, emulación y una cuenta de prueba según el riesgo.
+**Pregunta:** ¿Qué puede validar una prueba local con emuladores y qué requiere el entorno AWS real?
 
+**Breve:** Usa pruebas locales para ciclos rápidos y reserva validaciones en AWS para propiedades que el entorno local no reproduce. **Ampliada:** explica cómo elegir entre mocks, emulación y una cuenta de prueba según el riesgo.
 ## Error frecuente
 
 Interpretar una prueba verde del emulador como garantía de que permisos, reintentos o límites de AWS funcionarán igual. Documenta exactamente qué operación cubre la prueba.

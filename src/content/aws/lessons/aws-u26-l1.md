@@ -16,8 +16,9 @@ AWS opera la infraestructura física. El cliente conserva responsabilidades que 
 
 ## En entrevista
 
-**Breve:** AWS ofrece recursos y servicios bajo demanda. Elegí el modelo según el control que necesitás y las tareas que tu equipo puede operar. **Ampliada:** compará dos opciones para una API y nombrá una responsabilidad que AWS asume y otra que conserva el equipo.
+**Pregunta:** ¿Qué ventajas y responsabilidades implica consumir infraestructura bajo demanda en AWS?
 
+**Breve:** AWS ofrece recursos y servicios bajo demanda. Elegí el modelo según el control que necesitás y las tareas que tu equipo puede operar. **Ampliada:** compará dos opciones para una API y nombrá una responsabilidad que AWS asume y otra que conserva el equipo.
 ## Error frecuente
 
 Decir que “la nube se opera sola”. Una base administrada puede encargarse de tareas de infraestructura, pero todavía hay que definir acceso, capacidad, retención y recuperación. La frontera exacta depende del servicio.

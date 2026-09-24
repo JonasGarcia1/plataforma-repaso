@@ -16,8 +16,9 @@ No decidas por el nombre del servicio: compara costos a la carga prevista, arran
 
 ## En entrevista
 
-**Breve:** Presentá requisitos primero y compara el costo operativo y técnico de dos opciones. **Ampliada:** indica qué dato de carga o restricción podría cambiar tu recomendación.
+**Pregunta:** ¿Cómo elegirías entre EC2, ECS, EKS y Lambda según la carga?
 
+**Breve:** Presentá requisitos primero y compara el costo operativo y técnico de dos opciones. **Ampliada:** indica qué dato de carga o restricción podría cambiar tu recomendación.
 ## Error frecuente
 
 Elegir EKS solo porque el equipo conoce Kubernetes, aunque no necesite sus APIs ni tenga capacidad para operar la plataforma. La complejidad también es un costo.

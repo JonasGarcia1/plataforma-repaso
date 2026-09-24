@@ -15,8 +15,9 @@ Una réplica puede copiar una eliminación o corrupción rápidamente; no siempr
 
 ## En entrevista
 
-**Breve:** Asocia el mecanismo al tipo de fallo y al objetivo de recuperación. **Ampliada:** compara failover automático multi-AZ con restauración desde backup y cómo validarías ambos.
+**Pregunta:** ¿Cómo distinguirías alta disponibilidad de recuperación ante desastre?
 
+**Breve:** Asocia el mecanismo al tipo de fallo y al objetivo de recuperación. **Ampliada:** compara failover automático multi-AZ con restauración desde backup y cómo validarías ambos.
 ## Error frecuente
 
 Prometer continuidad con una réplica sin probar el proceso ni comprender qué errores replica. Mide recuperación y comprueba integridad antes de declarar el servicio restaurado.

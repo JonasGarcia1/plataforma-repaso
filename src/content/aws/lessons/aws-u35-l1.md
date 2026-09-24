@@ -14,8 +14,9 @@ Una etiqueta ayuda a las personas a encontrar una versión, pero puede moverse. 
 
 ## En entrevista
 
-**Breve:** ECR guarda imágenes y controla quién puede publicarlas o descargarlas. **Ampliada:** describe trazabilidad, escaneo y entrega de credenciales de runtime sin incluir secretos en la imagen.
+**Pregunta:** ¿Qué incluye una imagen de contenedor y qué función cumple ECR?
 
+**Breve:** ECR guarda imágenes y controla quién puede publicarlas o descargarlas. **Ampliada:** describe trazabilidad, escaneo y entrega de credenciales de runtime sin incluir secretos en la imagen.
 ## Error frecuente
 
 Desplegar `latest` como única referencia y perder trazabilidad. Usa un tag inmutable relacionado con el commit y registra el digest que consumió el servicio.

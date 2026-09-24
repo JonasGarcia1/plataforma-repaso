@@ -18,8 +18,9 @@ El SDK selecciona la región indicada y, al no especificarse un proveedor de cre
 
 ## En entrevista
 
-**Breve:** El SDK puede obtener credenciales de un perfil local o del rol del runtime mediante su cadena de proveedores. **Ampliada:** explica por qué el mismo artefacto puede usar fuentes distintas en desarrollo y AWS, y qué revisarías ante `Unable to load credentials`.
+**Pregunta:** ¿Cómo resuelve el SDK de Java sus credenciales y por qué preferirías credenciales temporales?
 
+**Breve:** El SDK puede obtener credenciales de un perfil local o del rol del runtime mediante su cadena de proveedores. **Ampliada:** explica por qué el mismo artefacto puede usar fuentes distintas en desarrollo y AWS, y qué revisarías ante `Unable to load credentials`.
 ## Error frecuente
 
 Guardar access keys en `application.properties`, código o variables versionadas. También es fácil diagnosticar mal la fuente activa: revisa variables, perfil seleccionado y rol asociado al runtime, sin imprimir secretos.

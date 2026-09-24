@@ -21,8 +21,9 @@ El cliente envía bytes al bucket y la clave indicada. El código necesita permi
 
 ## En entrevista
 
-**Breve:** S3 guarda objetos identificados por bucket y clave; es apropiado para archivos, no una carpeta compartida con operaciones de sistema de archivos. **Ampliada:** describe cómo subes un documento y limitas el acceso a una aplicación.
+**Pregunta:** ¿Cómo identificás un objeto de S3 y qué diferencia hay entre bucket, key y contenido?
 
+**Breve:** S3 guarda objetos identificados por bucket y clave; es apropiado para archivos, no una carpeta compartida con operaciones de sistema de archivos. **Ampliada:** describe cómo subes un documento y limitas el acceso a una aplicación.
 ## Error frecuente
 
 Suponer que conocer la URL o la clave basta para acceder, o hacer público un bucket para que una aplicación pueda leer un objeto. La aplicación debe usar una identidad autorizada; el bloqueo público no reemplaza IAM.

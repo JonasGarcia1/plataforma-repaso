@@ -14,8 +14,9 @@ AWS Backup centraliza planes y políticas para servicios compatibles; cada servi
 
 ## En entrevista
 
-**Breve:** Convertí RTO/RPO de negocio en frecuencia de respaldo y un procedimiento de restauración medible. **Ampliada:** indica cómo demostrarías que el objetivo se cumple y qué límites podrían frustrar el plan.
+**Pregunta:** ¿Cómo se relacionan RPO, RTO y una estrategia de backup?
 
+**Breve:** Convertí RTO/RPO de negocio en frecuencia de respaldo y un procedimiento de restauración medible. **Ampliada:** indica cómo demostrarías que el objetivo se cumple y qué límites podrían frustrar el plan.
 ## Error frecuente
 
 Tomar el estado “backup completado” como prueba de recuperabilidad. Una restauración puede tardar demasiado, perder relaciones entre datos o requerir cuotas no disponibles.

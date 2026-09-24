@@ -14,8 +14,9 @@ Un evento de administración como `PutRolePolicy` puede explicar quién alteró 
 
 ## En entrevista
 
-**Breve:** Usá CloudTrail para reconstruir acciones de API en la cuenta y CloudWatch para observar el comportamiento del servicio. **Ampliada:** describe qué atributos buscarías y cómo preservarías los registros para una investigación posterior.
+**Pregunta:** ¿Qué evidencia buscarías en CloudTrail para investigar un cambio de recursos?
 
+**Breve:** Usá CloudTrail para reconstruir acciones de API en la cuenta y CloudWatch para observar el comportamiento del servicio. **Ampliada:** describe qué atributos buscarías y cómo preservarías los registros para una investigación posterior.
 ## Error frecuente
 
 Confiar solo en logs de aplicación para auditar cambios IAM: quien modifica la infraestructura puede no pasar por esa aplicación. Configurá retención y acceso al trail según el riesgo, y monitoreá que el registro siga activo.

@@ -18,8 +18,9 @@ El período debe responder a requisitos de negocio y legales, no a un número el
 
 ## En entrevista
 
-**Breve:** Versionado conserva revisiones; lifecycle automatiza transición o expiración según reglas. **Ampliada:** compara recuperación de una sobrescritura con el archivado y explica el costo o plazo que cambia.
+**Pregunta:** ¿Cuándo aplicarías una regla de ciclo de vida de S3?
 
+**Breve:** Versionado conserva revisiones; lifecycle automatiza transición o expiración según reglas. **Ampliada:** compara recuperación de una sobrescritura con el archivado y explica el costo o plazo que cambia.
 ## Error frecuente
 
 Confundir transición a almacenamiento de archivo con borrado, o asumir que borrar la versión actual elimina todo. Revisá versiones no actuales, marcadores de eliminación, costos de recuperación y retención exigida.

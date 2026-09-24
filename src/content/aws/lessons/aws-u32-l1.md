@@ -14,8 +14,9 @@ Una métrica personalizada necesita nombre, unidad, período y dimensiones acota
 
 ## En entrevista
 
-**Breve:** Separá métricas para detectar cambios, logs para entender eventos y alarmas para iniciar una respuesta. **Ampliada:** explica qué síntoma medirías, qué umbral sería accionable y cómo pasarías de la alarma al request afectado.
+**Pregunta:** ¿Cómo combinarías métricas, logs y alarmas de CloudWatch durante un incidente?
 
+**Breve:** Separá métricas para detectar cambios, logs para entender eventos y alarmas para iniciar una respuesta. **Ampliada:** explica qué síntoma medirías, qué umbral sería accionable y cómo pasarías de la alarma al request afectado.
 ## Error frecuente
 
 Alarmar cada métrica con cualquier desviación produce ruido. Elegí señales que representen impacto al usuario, definí período y evaluación, y asigná un responsable y un runbook.

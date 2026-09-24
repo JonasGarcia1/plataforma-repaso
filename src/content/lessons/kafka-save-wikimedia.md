@@ -47,6 +47,8 @@ Revisá producer/consumer Wikimedia, topic wikimedia.recentchange.v1, MySQL y er
 
 ## Profundización
 
+Para interpretar una proyección retrasada, volvé a [rebalanceo y escalado](/leccion/kafka-rebalance-scaling) y [métricas y capacidad](/leccion/u25-e) antes de sumar instancias del consumidor.
+
 Continuación opcional: advanced-labs contiene AdvancedKafkaConfig (idempotencia, topics compactados), AdvancedLabService (transacción entre input y audit) y StreamTopology (mapValues a mayúsculas hacia labs.stream.output.v1). Compactación es asíncrona y value null actúa como tombstone. En consumidores transaccionales usá read_committed para excluir abortos.
 
 Límite del código inspeccionado: el template de advanced-labs es transaccional; sendIdempotent y updateState llaman send fuera de executeInTransaction, sin habilitar explícitamente envío no transaccional. Esas rutas requieren corregir/configurar ese uso antes de esperar éxito. Kafka Streams también necesita serdes adecuados para String. Estas extensiones son material de análisis; aquí no se modificó ni ejecutó el backend.
@@ -62,4 +64,3 @@ Límite del código inspeccionado: el template de advanced-labs es transaccional
 - Sé levantar producer y consumer.
 - Sé consultar Swagger del consumer.
 - Sé explicar por qué el GET no consume Kafka.
-

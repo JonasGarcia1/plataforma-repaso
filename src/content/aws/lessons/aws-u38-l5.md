@@ -29,8 +29,11 @@ Para el pedido de prueba, podés correlacionar la respuesta de la API, la clave 
 
 ## En entrevista
 
-**Breve:** ¿Qué valida una integración local? **Ampliada:** separá la evidencia del emulador de las propiedades que solo se validan en AWS o con pruebas de carga/operación específicas.
+**Pregunta:** ¿Qué fronteras debe comprobar una prueba integral del flujo de pedidos?
 
+**Breve:** Verificaría la aceptación HTTP, el objeto en S3, el mensaje en SQS y el registro final en DynamoDB.
+
+**Ampliada:** La prueba puede enviar un pedido, confirmar su contenido en S3 y SQS, invocar el handler y consultar DynamoDB. También probaría mensajes inválidos y duplicados. Floci sirve para validar el flujo y la configuración local, mientras permisos IAM, límites de servicio, carga y operación deben comprobarse en AWS.
 ## Error frecuente
 
 Usar una prueba verde local como afirmación general de compatibilidad de producción. La cobertura depende de la versión del emulador y de las operaciones utilizadas; documentá ese alcance con precisión.

@@ -19,8 +19,9 @@ La misma decisión se puede revisar desde otros pilares: ¿quién puede leer el 
 
 ## En entrevista
 
-**Breve:** Usá los seis pilares como lentes para encontrar riesgos, no como una receta. **Ampliada:** explicá un requisito, la decisión tomada, una alternativa y la evidencia que demostraría que la solución cumple.
+**Pregunta:** ¿Cómo usarías los pilares de Well-Architected para revisar una carga de trabajo?
 
+**Breve:** Usá los seis pilares como lentes para encontrar riesgos, no como una receta. **Ampliada:** explicá un requisito, la decisión tomada, una alternativa y la evidencia que demostraría que la solución cumple.
 ## Error frecuente
 
 Tratar una lista de buenas prácticas como una garantía universal. Una cola con DLQ no resuelve automáticamente duplicados ni recuperación: hay que diseñar el consumidor y ensayar el reproceso.

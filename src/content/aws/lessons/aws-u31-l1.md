@@ -18,8 +18,9 @@ El envío aceptado significa que la cola recibió el mensaje, no que el pedido y
 
 ## En entrevista
 
-**Breve:** SQS almacena trabajo para consumo posterior. El visibility timeout permite procesarlo y luego eliminarlo; la entrega repetida exige idempotencia. **Ampliada:** compara cola estándar y FIFO para un flujo que requiere o no orden por pedido.
+**Pregunta:** ¿Qué problema resuelve la visibilidad de mensajes en SQS y cómo evitás procesarlos dos veces?
 
+**Breve:** SQS almacena trabajo para consumo posterior. El visibility timeout permite procesarlo y luego eliminarlo; la entrega repetida exige idempotencia. **Ampliada:** compara cola estándar y FIFO para un flujo que requiere o no orden por pedido.
 ## Error frecuente
 
 Asumir entrega exactamente una vez y ejecutar dos veces un cargo o reserva. Usa una clave de idempotencia persistida y asegúrate de que el timeout cubra el procesamiento esperado, con margen para eliminar el mensaje.
