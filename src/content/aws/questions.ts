@@ -1,4 +1,6 @@
 import type { Question } from '../../types';
+import { awsGuideBasicCandidates } from './guide-basic-candidates';
+import { awsGuideSeniorCandidates } from './guide-senior-candidates';
 
 const awsLevels: Record<number, Question['level']> = {
   26: 'Fundamentos cloud', 27: 'Fundamentos cloud', 28: 'Fundamentos cloud',
@@ -79,4 +81,8 @@ const awsQuestionSeeds: AwsQuestionSeed[] = [
   ['floci-boundaries',38,'aws-u38-l5','¿Qué demuestra una prueba integral local con Floci y qué queda pendiente?','Demuestra el recorrido ejecutado con las operaciones que emula esa versión y configuración.','No prueba permisos efectivos, cuotas, latencia, disponibilidad ni todas las semánticas de AWS. Para esas propiedades preparo una validación específica en una cuenta aislada si el riesgo lo requiere.'],
 ];
 
-export const awsQuestions: Question[] = awsQuestionSeeds.map(awsQuestion);
+export const awsQuestions: Question[] = [
+  ...awsQuestionSeeds.map(awsQuestion),
+  ...awsGuideBasicCandidates,
+  ...awsGuideSeniorCandidates,
+].map(question => ({ ...question, level: awsLevels[question.unitId] }));

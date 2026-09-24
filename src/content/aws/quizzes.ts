@@ -2,6 +2,7 @@ import type { QuizQuestion } from '../../types';
 import { awsQuizzesU27U31 } from './quizzes-u27-u31';
 import { awsQuizzesU32U37 } from './quizzes-u32-u37';
 import { awsQuizzesU38 } from './quizzes-u38';
+import { awsGuideQuizAdditions } from './quizzes-guide-additions';
 
 const originalAwsQuizzes: QuizQuestion[] = [
   {id:'aws-quiz-u26-01',unitId:26,lessonId:'aws-u26-l1',prompt:'Una startup debe instalar un agente propio y elegir el sistema operativo. ¿Qué modelo le da ese control?',correctIndex:0,options:[{text:'IaaS: máquinas virtuales que el equipo configura.',explanation:'Correcta: IaaS entrega infraestructura y deja al equipo elegir sistema operativo, red y agente.'},{text:'PaaS: plataforma administrada para desplegar código.',explanation:'PaaS reduce operación de plataforma; sirve si no se necesita administrar el sistema operativo.'},{text:'SaaS: aplicación lista para usuarios finales.',explanation:'SaaS resuelve una necesidad de negocio terminada, no ofrece una máquina para instalar agentes.'},{text:'CloudFront: CDN para entregar contenido.',explanation:'CloudFront acelera distribución de contenido; no provee cómputo ni control del sistema operativo.'}]},
@@ -22,4 +23,5 @@ export const awsQuizzes: QuizQuestion[] = [
   ...awsQuizzesU27U31,
   ...awsQuizzesU32U37,
   ...awsQuizzesU38,
+  ...awsGuideQuizAdditions,
 ];

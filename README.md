@@ -1,6 +1,6 @@
 # Repaso · Backend Java y AWS
 
-Plataforma personal de estudio en español con dos módulos: **Backend Java** (5 etapas, 25 unidades, 87 lecciones, 195 preguntas y 250 quizzes) y **AWS & Cloud** (5 etapas, 13 unidades, 41 lecciones, 65 preguntas y 130 quizzes). React + Vite + TypeScript; no requiere cuenta ni backend.
+Plataforma personal de estudio en español con dos módulos: **Backend Java** (5 etapas, 25 unidades, 87 lecciones, 195 preguntas y 250 quizzes) y **AWS & Cloud** (5 etapas, 13 unidades, 41 lecciones, 84 preguntas y 135 quizzes). React + Vite + TypeScript; no requiere cuenta ni backend.
 
 ## Abrir en tu computadora
 
@@ -19,7 +19,7 @@ No necesitás iniciar Kafka, Docker, Spring Boot ni AWS para estudiar o practica
 - **Backend Java:** las 25 unidades abiertas, agrupadas en cinco etapas.
 - **AWS & Cloud:** 13 unidades desde fundamentos de nube hasta un proyecto integrador de pedidos con servicios AWS.
 - **Lecciones:** objetivos, prerrequisitos enlazados, explicación, código copiable, respuestas orientativas, práctica con pista/solución ocultas y profundización desplegable.
-- **Preguntas:** filtros por unidad, etapa y favoritos. Incluye 260 preguntas con respuestas revisadas y vinculadas a sus lecciones.
+- **Preguntas:** filtros por unidad, etapa y favoritos. Incluye 279 preguntas con respuestas revisadas y vinculadas a sus lecciones.
 - **Práctica:** quiz con explicación de las cuatro opciones; simulacro abierto con autoevaluación. Cada sesión toma hasta 10 preguntas distintas (menos si la unidad filtrada no tiene suficientes).
 - **Recursos:** glosario y documentación filtrados por módulo; guías para laboratorios enlazados desde sus módulos.
 - **Progreso:** exportación/importación JSON con revisión antes de reemplazar datos. Leer no completa una lección automáticamente.

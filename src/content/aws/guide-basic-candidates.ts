@@ -1,0 +1,77 @@
+import type { Question } from '../../types';
+
+// Nota editorial: candidatas revisadas para ampliar conceptos y casos poco cubiertos.
+export const awsGuideBasicCandidates: Question[] = [
+  {
+    id: 'aws-guide-basic-account-arn', unitId: 26, lessonId: 'aws-u26-l1',
+    prompt: '¿Qué identifica un ARN y por qué conviene revisar cuenta y región antes de operar?',
+    shortAnswer: 'Un ARN identifica un recurso AWS; cuenta y región ayudan a confirmar el alcance donde se está trabajando.',
+    answer: 'Un ARN identifica un recurso en políticas y llamadas de AWS, con formato que varía según el servicio. Antes de cambiarlo, verifico cuenta y región: nombres similares pueden existir en entornos distintos.',
+    keyPoints: ['El ARN identifica recursos AWS', 'El formato depende del servicio', 'Verificar cuenta y región evita operar sobre el entorno equivocado'],
+    level: 'Fundamentos cloud',
+  },
+  {
+    id: 'aws-guide-basic-trust-permissions', unitId: 27, lessonId: 'aws-u27-l1',
+    prompt: '¿Qué diferencia hay entre la trust policy y la permissions policy de un rol IAM?',
+    shortAnswer: 'La trust policy define quién puede asumir el rol; la permissions policy define qué puede hacer.',
+    answer: 'Un rol necesita ambas decisiones. Por ejemplo, ECS debe estar autorizado para asumir el rol y, una vez asumido, sus permisos pueden permitir leer un bucket concreto.',
+    keyPoints: ['Trust policy: quién asume el rol', 'Permissions policy: acciones y recursos permitidos', 'Tener permisos no concede por sí solo el derecho a asumir el rol'],
+    level: 'Fundamentos cloud',
+  },
+  {
+    id: 'aws-guide-basic-ecs-task-roles', unitId: 27, lessonId: 'aws-u27-l1',
+    prompt: 'En ECS, ¿cuándo necesita permisos el task role y cuándo el task execution role?',
+    shortAnswer: 'El task role autoriza al código de la aplicación; el execution role autoriza operaciones de arranque de ECS.',
+    answer: 'Java usa el task role para llamar a S3 durante la ejecución. El execution role permite a ECS, por ejemplo, descargar la imagen de ECR o enviar logs según la configuración.',
+    keyPoints: ['Task role: llamadas AWS hechas por la aplicación', 'Execution role: acciones de ECS para iniciar y operar la tarea', 'Asignar a cada rol solo los permisos que requiere'],
+    level: 'Fundamentos cloud',
+  },
+  {
+    id: 'aws-guide-basic-private-egress', unitId: 28, lessonId: 'aws-u28-l1',
+    prompt: 'Una tarea privada tiene permisos IAM, pero no puede llamar a un servicio AWS. ¿Qué dos planos revisarías?',
+    shortAnswer: 'Revisaría autorización IAM y conectividad de red, porque son controles independientes.',
+    answer: 'IAM permite la operación de API, pero no crea una ruta de red. Según el destino, la tarea puede necesitar salida por NAT Gateway o un VPC endpoint compatible, además de rutas y reglas correctas.',
+    keyPoints: ['IAM controla autorización de API', 'Rutas y gateways/endpoints controlan conectividad', 'NAT y VPC endpoints resuelven necesidades de salida distintas'],
+    level: 'Fundamentos cloud',
+  },
+  {
+    id: 'aws-guide-basic-dns-tls', unitId: 29, lessonId: 'aws-u29-l3',
+    prompt: '¿Qué aportan Route 53 y ACM al publicar una API por HTTPS?',
+    shortAnswer: 'Route 53 resuelve el dominio; ACM gestiona el certificado TLS usado por el endpoint.',
+    answer: 'El ALB o CloudFront puede usar un certificado administrado por ACM para terminar HTTPS. DNS dirige el nombre al destino; Route 53 no ejecuta la API ni cifra por sí solo la conexión.',
+    keyPoints: ['Route 53: DNS y resolución del dominio', 'ACM: certificados TLS integrables con servicios AWS', 'HTTPS requiere configurar el certificado en el endpoint'],
+    level: 'Servicios e integración',
+  },
+  {
+    id: 'aws-guide-basic-rds-protections', unitId: 30, lessonId: 'aws-u30-l1',
+    prompt: '¿Son intercambiables un backup, Multi-AZ y una read replica de RDS?',
+    shortAnswer: 'No: backup permite recuperar datos, Multi-AZ mejora disponibilidad y una read replica descarga lecturas.',
+    answer: 'Una réplica de lectura puede tener retraso y no protege por sí sola contra una eliminación que se replique. Multi-AZ con standby de instancia no sirve para lecturas de la aplicación; las modalidades de clúster pueden tener otro comportamiento.',
+    keyPoints: ['Backup: recuperación de un estado anterior', 'Multi-AZ: disponibilidad ante ciertos fallos', 'Read replica: capacidad de lectura, con posible retraso'],
+    level: 'Servicios e integración',
+  },
+  {
+    id: 'aws-guide-basic-cognito-pools', unitId: 27, lessonId: 'aws-u27-l1',
+    prompt: '¿Cuándo usarías un Cognito user pool y cuándo un identity pool?',
+    shortAnswer: 'User pool gestiona inicio de sesión y tokens; identity pool puede entregar credenciales AWS temporales.',
+    answer: 'React puede autenticar usuarios con un user pool y presentar tokens a Java, que los valida y aplica autorización de negocio. Un identity pool se considera cuando una identidad necesita credenciales temporales para acceder directamente a servicios AWS.',
+    keyPoints: ['User pool: usuarios y tokens OIDC', 'Identity pool: credenciales AWS temporales para identidades autorizadas', 'Iniciar sesión no concede acceso automático a recursos o pedidos'],
+    level: 'Fundamentos cloud',
+  },
+  {
+    id: 'aws-guide-basic-cicd', unitId: 37, lessonId: 'aws-u37-l3',
+    prompt: '¿Qué etapas mínimas tendría un flujo CI/CD para Java en ECS y React estático?',
+    shortAnswer: 'Verificar y probar, construir artefactos versionados, publicar y desplegar, y comprobar el resultado.',
+    answer: 'Para Java, el pipeline puede compilar, probar, construir una imagen y publicarla en ECR antes de actualizar ECS. Para React, verifica, prueba, genera el build y publica sus assets. La versión debe poder identificarse y revisarse después del despliegue.',
+    keyPoints: ['Automatizar compilación y pruebas', 'Publicar artefactos identificables', 'Desplegar y verificar salud después del cambio'],
+    level: 'Arquitectura y operación',
+  },
+  {
+    id: 'aws-guide-basic-iac', unitId: 37, lessonId: 'aws-u37-l3',
+    prompt: '¿Qué ventaja aporta describir la infraestructura AWS como código?',
+    shortAnswer: 'Permite versionar, revisar y reproducir recursos e interconexiones de forma controlada.',
+    answer: 'CloudFormation aplica plantillas y CDK permite describir infraestructura con lenguajes de programación y sintetizar plantillas. Los cambios y la eliminación de recursos con datos persistentes requieren revisión explícita.',
+    keyPoints: ['Infraestructura declarada y versionada', 'Cambios revisables y reproducibles', 'La eliminación debe considerar datos persistentes'],
+    level: 'Arquitectura y operación',
+  },
+];

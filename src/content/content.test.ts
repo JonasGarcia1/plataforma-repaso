@@ -8,7 +8,7 @@ describe('integridad de los módulos publicados',()=>{
   const java=getModule('java');const aws=getModule('aws');
   expect(modules.map(module=>module.id)).toEqual(['java','aws']);
   expect(java.stages).toHaveLength(5);expect(java.units).toHaveLength(25);expect(java.lessons).toHaveLength(87);expect(java.questions).toHaveLength(195);expect(java.quizzes).toHaveLength(250);
-  expect(aws.stages).toHaveLength(5);expect(aws.units).toHaveLength(13);expect(aws.lessons).toHaveLength(41);expect(aws.questions).toHaveLength(65);expect(aws.quizzes).toHaveLength(130);
+  expect(aws.stages).toHaveLength(5);expect(aws.units).toHaveLength(13);expect(aws.lessons).toHaveLength(41);expect(aws.questions).toHaveLength(84);expect(aws.quizzes).toHaveLength(135);
   expect(javaStages).toHaveLength(5);expect(javaUnits).toHaveLength(25);expect(javaLessons).toHaveLength(87);expect(javaQuestions).toHaveLength(195);expect(javaQuizzes).toHaveLength(250);
   expect(aws.units.map(unit=>unit.id)).toEqual(Array.from({length:13},(_,index)=>index+26));
  });
@@ -35,7 +35,7 @@ describe('integridad de los módulos publicados',()=>{
     expect(question.answer.length).toBeGreaterThan(50);expect(question.keyPoints.length).toBeGreaterThan(0);
     expect(question.level).toBe(module.units.find(unit=>unit.id===question.unitId)?.level);
    }
-   for(const unit of module.units)expect(module.quizzes.filter(item=>item.unitId===unit.id),`unidad ${unit.id}`).toHaveLength(10);
+   for(const unit of module.units)expect(module.quizzes.filter(item=>item.unitId===unit.id).length,`unidad ${unit.id}`).toBeGreaterThanOrEqual(10);
   }
  });
 
